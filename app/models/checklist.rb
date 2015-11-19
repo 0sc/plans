@@ -1,10 +1,12 @@
-class Checklist < ActiveRecord::Base
+class Checklist < List
+  belongs_to :user, foreign_key: :relationship_id
+  has_many :items, foreign_key: :relationship_id, dependent: :destroy
 
-  validates :name,
-    presence: true,
-    length: { in: 2..50 },
-    uniqueness: { case_sensitive: false }
+  def pending
+    items.where(done: false)
+  end
 
-  belongs_to :user
-  has_many :checklist_items
+  def completed
+    items.where(done: true)
+  end
 end
