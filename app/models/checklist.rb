@@ -1,10 +1,4 @@
-class Checklist < ActiveRecord::Base
-
-  validates :name,
-    presence: true,
-    length: { in: 2..50 },
-    uniqueness: { case_sensitive: false }
-
+class Checklist < Item
   belongs_to :user
-  has_many :checklist_items
+  has_many :checklist_items, foreign_key: :relationship_id
 end
