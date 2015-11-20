@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/create'
-
-  get 'users/update'
-
-  get 'users/show'
-
-  get 'users/login'
-
-  get 'users/logout'
+  resources :users, only: :create
 
   namespace :v1 do
     resources :checklists, format: :json do
