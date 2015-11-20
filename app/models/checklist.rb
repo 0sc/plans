@@ -1,4 +1,12 @@
-class Checklist < Item
-  belongs_to :user
-  has_many :checklist_items, foreign_key: :relationship_id
+class Checklist < List
+  belongs_to :user, foreign_key: :relationship_id
+  has_many :items, foreign_key: :relationship_id, dependent: :destroy
+
+  def pending
+    items.where(done: false)
+  end
+
+  def completed
+    items.where(done: true)
+  end
 end
