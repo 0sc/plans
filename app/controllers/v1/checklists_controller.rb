@@ -1,5 +1,5 @@
 module V1
-  class ChecklistsController < ApplicationController
+  class ChecklistsController < BaseController
     before_action :set_current_user_checklists, except: :create
     before_action :get_checklist, except: [:index, :create]
 
@@ -26,10 +26,10 @@ module V1
 
     def update
       data = checklist_params
-      if checklist_params.empty?
+      if data.empty?
         render json: @checklist, status: 422
       else
-        if @checklist.update(checklist_params)
+        if @checklist.update(data)
           render json: @checklist, status: 200
         else
           render json: @checklist.errors, status: 422

@@ -1,5 +1,5 @@
 module V1
-  class ItemsController < ApplicationController
+  class ItemsController < BaseController
     before_action :set_current_user_checklists
     before_action { get_checklist(:id, params[:checklist_id]) }
     before_action :get_checklist_item, only: [:show, :destroy, :update]

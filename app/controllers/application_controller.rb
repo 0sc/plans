@@ -2,15 +2,14 @@ class ApplicationController < ActionController::API
   # include ::ActionController::Serialization
 
   def current_user
-    User.first
+    @current_user || authenticate_token
   end
 
-  def set_current_user_checklists
-    @my_checklists = current_user.checklists
-  end
+  def authenticate_token
+    payload, header =  TokenManager.new(request).authenticate!
+    @current_user = User.find_by(id: payload["user"])
+    return if @current_user
 
-  def get_checklist(col = :id, data = params[:id] )
-    @checklist = @my_checklists.find_by(col => data)
-    render json: "", status: :unprocessable_entity unless @checklist
+    head 401
   end
 end
