@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119200851) do
+ActiveRecord::Schema.define(version: 20151122194921) do
 
   create_table "lists", force: :cascade do |t|
     t.string   "type"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20151119200851) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "active"
   end
 
 end
