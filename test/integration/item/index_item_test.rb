@@ -68,6 +68,10 @@ class ItemIndexTest < ActionDispatch::IntegrationTest
     assert_empty @payload
   end
 
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:get_checklist_items)
+  end
+
   test "returns 401 if token is invalid" do
     @token = ""
     get_checklist_items

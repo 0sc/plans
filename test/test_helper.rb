@@ -40,4 +40,12 @@ class ActiveSupport::TestCase
     assert_equal Mime::JSON, response.content_type
     json(response.body)["auth_token"]
   end
+
+  def user_logged_out_test(method)
+    return unless @user
+    @user.update(active: false)
+    refute @user.active
+    send(method)
+    assert_response 401
+  end
 end

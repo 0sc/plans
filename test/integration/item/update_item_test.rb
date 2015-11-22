@@ -93,6 +93,10 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     assertions_for_invalid_update_request("Name is too short (minimum is 2 characters)")
   end
 
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:update_checklist_item)
+  end
+
   test "returns 401 for invalid token" do
     @token = ""
     update_checklist_item

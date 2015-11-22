@@ -42,6 +42,10 @@ class ShowingItemTest < ActionDispatch::IntegrationTest
     assert_empty response.body
   end
 
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:show_checklist_item)
+  end
+
   test "returns 401 if token is invalid" do
     @token = ""
     show_checklist_item

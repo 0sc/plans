@@ -65,6 +65,10 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
     assertions_for_invalid_create_action(Faker::Lorem.characters(1), "Name is too short (minimum is 2 characters)")
   end
 
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:create_checklist_item)
+  end
+
   test "returns 401 if token is invalid" do
     @token = ""
     create_checklist_item

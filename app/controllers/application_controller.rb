@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
   def authenticate_token
     payload, header =  TokenManager.new(request).authenticate!
     @current_user = User.find_by(id: payload["user"])
-    return if @current_user
+    return if @current_user && @current_user.active
 
     render json: "", status: 401
   end

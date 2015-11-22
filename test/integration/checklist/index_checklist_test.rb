@@ -52,6 +52,10 @@ class ChecklistIndexTest < ActionDispatch::IntegrationTest
 
   # Write test for pagination
 
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:get_user_checklist)
+  end
+
   test "returns 401 for invalid token" do
     @token = ""
     get_user_checklist
