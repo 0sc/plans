@@ -16,7 +16,7 @@ module V1
       if checklist.save
         render json: checklist, status: 201#, location: checklist
       else
-        render json: checklist.errors, status: 422
+        render json: checklist.errors.full_messages, status: 422
       end
     end
 
@@ -32,7 +32,7 @@ module V1
         if @checklist.update(data)
           render json: @checklist, status: 200
         else
-          render json: @checklist.errors, status: 422
+          render json: @checklist.errors.full_messages, status: 422
         end
       end
     end
@@ -45,11 +45,7 @@ module V1
     private
 
     def checklist_params
-      begin
-        params.fetch(:checklist, {}).permit(:name)
-      rescue
-        head 400
-      end
+      params.fetch(:checklist, {}).permit(:name)
     end
   end
 end

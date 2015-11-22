@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::API
-  # include ::ActionController::Serialization
+  include ActionController::Serialization
 
   def current_user
-    @current_user || authenticate_token
+    head 401 unless @current_user
+    @current_user
   end
 
   def authenticate_token
@@ -10,6 +11,6 @@ class ApplicationController < ActionController::API
     @current_user = User.find_by(id: payload["user"])
     return if @current_user
 
-    head 401
+    render json: "", status: 401
   end
 end

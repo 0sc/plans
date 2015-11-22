@@ -1,7 +1,7 @@
 module V1
   class BaseController < ApplicationController
     before_action :authenticate_token
-    
+
     def set_current_user_checklists
       @my_checklists = current_user.checklists
     end

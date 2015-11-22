@@ -24,7 +24,7 @@ module V1
       if item.save
         render json: item, status: 201#, location: item
       else
-        render json: item.errors, status: 422
+        render json: item.errors.full_messages, status: 422
       end
     end
 
@@ -42,9 +42,9 @@ module V1
         render json: @item, status: 422
       else
         if @item.update(item_params)
-          render json: @item
+          render json: @item, status: 200
         else
-          render json: @item.errors, status: 422
+          render json: @item.errors.full_messages, status: 422
         end
       end
     end
