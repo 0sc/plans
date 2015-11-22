@@ -7,7 +7,9 @@ module V1
       checklists = @my_checklists
       q = params[:q]
       checklists = q ? checklists.where("name Like ?", "%#{q}%") : checklists.all
-      render json: checklists, status: 200
+
+      paginate = PaginationManager.new(params, checklists)
+      render json: paginate.query, meta: paginate.set_meta_tag, status: 200
     end
 
     def create

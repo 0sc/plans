@@ -6,10 +6,12 @@ class UpdatingChecklistTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
 
     assert_equal Mime::JSON, response.content_type
-    @payload = json(response.body) unless response.body.empty?
+    @root ||= "checklist"
+    @payload = json(response.body)[@root] unless response.body.empty?
   end
 
   def assertions_for_invalid_update_request(param, message)
+    @root = "checklists"
     update_user_checklist(@list.id, param)
     assert_response 422
     assert @payload.include? message
@@ -57,6 +59,10 @@ class UpdatingChecklistTest < ActionDispatch::IntegrationTest
 
   test "returns 422 if new name is too short" do
     assertions_for_invalid_update_request(Faker::Lorem.characters(1), "Name is too short (minimum is 2 characters)")
+  end
+
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:update_user_checklist)
   end
 
   test "returns 401 for invalid token" do

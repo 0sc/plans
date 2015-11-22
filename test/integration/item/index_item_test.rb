@@ -6,7 +6,7 @@ class ItemIndexTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
 
-    @payload = json(response.body) unless response.body.empty?
+    @payload = json(response.body)["items"] unless response.body.empty?
   end
 
   setup do
@@ -66,6 +66,10 @@ class ItemIndexTest < ActionDispatch::IntegrationTest
     get_checklist_items
     assert_response 200
     assert_empty @payload
+  end
+
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:get_checklist_items)
   end
 
   test "returns 401 if token is invalid" do

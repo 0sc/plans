@@ -6,7 +6,7 @@ class ShowChecklistTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
 
-    @payload = json(response.body) unless response.body.empty?
+    @payload = json(response.body)["checklist"] unless response.body.empty?
   end
 
   setup do
@@ -33,6 +33,10 @@ class ShowChecklistTest < ActionDispatch::IntegrationTest
     get_user_checklist
     assert_response 422
     assert_empty response.body
+  end
+
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:get_user_checklist)
   end
 
   test "returns 401 for invalid token" do

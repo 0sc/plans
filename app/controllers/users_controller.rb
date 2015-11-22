@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   def login
     user = User.find_by_email(user_params[:email])
     if user && user.authenticate(user_params[:password])
+      user.update!(active: true)
       render json: token(user), status: 200
     else
       render json: "", status: 422
@@ -35,7 +36,8 @@ class UsersController < ApplicationController
   end
 
   def logout
-    # invalidate token
+    current_user.update(active: false)
+    render json: "", status: 200
   end
 
   private

@@ -21,29 +21,27 @@ class LoginUserTest < ActionDispatch::IntegrationTest
   end
 
   setup { @user = create(:user) }
+
   test "logs user in with valid params and returns auth_token" do
     setup_user_login(@user.email, "pass")
-
     assert_response 200
     payload = json(response.body)
     assert payload["auth_token"]
+    assert @user.reload.active
   end
 
   test "return 422 with invalid params" do
     setup_user_login("", "")
-
     assertions_for_invalid_login
   end
 
   test "returns 422 if email is not found" do
     setup_user_login(Faker::Internet.email, "pass")
-
     assertions_for_invalid_login
   end
 
   test "returns 422 if email and password does not match" do
     setup_user_login(@user.email, "wrong_password")
-
     assertions_for_invalid_login
   end
 end

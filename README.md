@@ -1,5 +1,7 @@
 == README
 
+[![Code Climate](https://codeclimate.com/github/andela-ooranagwa/bucketlist/badges/gpa.svg)](https://codeclimate.com/github/andela-ooranagwa/bucketlist) [![Test Coverage](https://codeclimate.com/github/andela-ooranagwa/bucketlist/badges/coverage.svg)](https://codeclimate.com/github/andela-ooranagwa/bucketlist/coverage)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

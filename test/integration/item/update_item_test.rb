@@ -6,7 +6,8 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
 
     assert_equal Mime::JSON, response.content_type
-    @payload = json(response.body) unless response.body.empty?
+    @root ||= "item"
+    @payload = json(response.body)[@root] unless response.body.empty?
   end
 
   def assertions_with_no_message(id = nil)
@@ -18,6 +19,7 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   end
 
   def assertions_for_invalid_update_request(message)
+    @root = "items"
     update_checklist_item
     assert_response 422
     assert @payload.include? message
@@ -91,6 +93,10 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   test "it returns 422 if name is too short" do
     @item.name = Faker::Lorem.characters(1)
     assertions_for_invalid_update_request("Name is too short (minimum is 2 characters)")
+  end
+
+  test "returns 422 if user is not logged in" do
+    user_logged_out_test(:update_checklist_item)
   end
 
   test "returns 401 for invalid token" do

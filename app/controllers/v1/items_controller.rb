@@ -8,14 +8,17 @@ module V1
       if params[:q]
         q = params[:q]
         if q == "done"
-          render json: @checklist.completed, status: 200
+          paginate = PaginationManager.new(params, @checklist.completed)
+          render json: paginate.query, status: 200
         elsif q == "pending"
-          render json: @checklist.pending, status: 200
+          paginate = PaginationManager.new(params, @checklist.pending)
+          render json: paginate.query, status: 200
         else
           render json: "", status: 422
         end
       else
-        render json: @checklist.items, status: 200
+        paginate = PaginationManager.new(params, @checklist.items)
+        render json: paginate.query, status: 200
       end
     end
 
