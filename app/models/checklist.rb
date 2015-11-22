@@ -3,10 +3,10 @@ class Checklist < List
   has_many :items, foreign_key: :relationship_id, dependent: :destroy
 
   def pending
-    items.where("done")
+    items.where(done: false)
   end
 
   def completed
-    items.where("done")
+    items.where(done: true)
   end
 end

@@ -10,8 +10,13 @@ gem "jwt"
 gem "active_model_serializers", github: "rails-api/active_model_serializers"
 
 group :development, :test do
-  gem "faker"
   gem "pry"
+  gem "factory_girl_rails", "~> 4.0"
+end
+
+group :test do
+  gem "faker"
+  gem 'simplecov', :require => false
 end
 
 group :development do
