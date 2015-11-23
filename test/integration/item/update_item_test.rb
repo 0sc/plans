@@ -6,7 +6,8 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
 
     assert_equal Mime::JSON, response.content_type
-    @payload = json(response.body) unless response.body.empty?
+    @root ||= "item"
+    @payload = json(response.body)[@root] unless response.body.empty?
   end
 
   def assertions_with_no_message(id = nil)
@@ -18,6 +19,7 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   end
 
   def assertions_for_invalid_update_request(message)
+    @root = "items"
     update_checklist_item
     assert_response 422
     assert @payload.include? message

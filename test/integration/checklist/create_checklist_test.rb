@@ -11,7 +11,8 @@ class CreatingCheckListTest < ActionDispatch::IntegrationTest
       checklist: { name: name} }.to_json,
       { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
-    @payload = json(response.body) unless response.body.empty?
+    @root ||= "checklists"
+    @payload = json(response.body)[@root] unless response.body.empty?
   end
 
   def assertions_for_invalid_create_action (params, message)
@@ -24,6 +25,7 @@ class CreatingCheckListTest < ActionDispatch::IntegrationTest
 
   test "create checklist if params is valid" do
     assert_equal 0, @user.checklists.count
+    @root = "checklist"
     setup_create_checklist ("My Checklist")
     assert_response 201
     assert_equal "My Checklist",  @payload["name"]

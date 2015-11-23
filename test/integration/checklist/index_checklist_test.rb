@@ -11,7 +11,7 @@ class ChecklistIndexTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
 
-    @payload = json(response.body) unless response.body.empty?
+    @payload = json(response.body)["checklists"] unless response.body.empty?
   end
 
   test "returns all the users checklist" do
@@ -49,8 +49,6 @@ class ChecklistIndexTest < ActionDispatch::IntegrationTest
     assert_response 200
     assert @payload.empty?
   end
-
-  # Write test for pagination
 
   test "returns 422 if user is not logged in" do
     user_logged_out_test(:get_user_checklist)

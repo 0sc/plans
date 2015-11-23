@@ -8,10 +8,12 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
 
     assert_equal Mime::JSON, response.content_type
 
-    @payload = json(response.body) unless response.body.empty?
+    @root ||= "item"
+    @payload = json(response.body)[@root] unless response.body.empty?
   end
 
   def assertions_for_invalid_create_action(params, message)
+    @root = "items"
     create_checklist_item(params)
     assert_response 422
     assert @payload.include? message

@@ -6,7 +6,7 @@ class ShowChecklistTest < ActionDispatch::IntegrationTest
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
 
-    @payload = json(response.body) unless response.body.empty?
+    @payload = json(response.body)["checklist"] unless response.body.empty?
   end
 
   setup do
