@@ -1,4 +1,4 @@
-== README
+# Bucketlist
 
 [![Code Climate](https://codeclimate.com/github/andela-ooranagwa/bucketlist/badges/gpa.svg)](https://codeclimate.com/github/andela-ooranagwa/bucketlist) [![Test Coverage](https://codeclimate.com/github/andela-ooranagwa/bucketlist/badges/coverage.svg)](https://codeclimate.com/github/andela-ooranagwa/bucketlist/coverage)
 

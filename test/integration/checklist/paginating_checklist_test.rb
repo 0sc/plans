@@ -44,7 +44,7 @@ class PaginatingChecklistIndexTest < ActionDispatch::IntegrationTest
     common_assertions(100, true)
   end
 
-  test "returns items in the give page and within the given limit" do
+  test "returns items in the given page and within the given limit" do
     @page = 5; @limit = 8
     common_assertions
     special_assertions

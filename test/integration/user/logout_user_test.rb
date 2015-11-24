@@ -24,7 +24,7 @@ class LogoutUserTest < ActionDispatch::IntegrationTest
     assert_response 401
   end
 
-  test "returns 422 if user is not logged in" do
+  test "returns 401 if user is not logged in" do
     user_logged_out_test(:setup_user_logout)
   end
 

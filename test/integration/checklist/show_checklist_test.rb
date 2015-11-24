@@ -15,7 +15,7 @@ class ShowChecklistTest < ActionDispatch::IntegrationTest
     @list = user.checklists.first
   end
 
-  test "show the details of a valid checklist" do
+  test "shows the details of a valid checklist" do
     get_user_checklist
     assert_response 200
     assert_equal @list.name, @payload["name"]
@@ -35,7 +35,7 @@ class ShowChecklistTest < ActionDispatch::IntegrationTest
     assert_empty response.body
   end
 
-  test "returns 422 if user is not logged in" do
+  test "returns 401 if user is not logged in" do
     user_logged_out_test(:get_user_checklist)
   end
 

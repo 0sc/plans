@@ -2,7 +2,7 @@ require "test_helper"
 
 class ItemIndexTest < ActionDispatch::IntegrationTest
   def get_checklist_items(list_id = @list.id, param = nil)
-    get "/v1/checklists/#{list_id}/items", {q: param},{ 'Accept' => Mime::JSON,
+    get "/v1/checklists/#{list_id}/items", {status: param},{ 'Accept' => Mime::JSON,
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
 
@@ -68,7 +68,7 @@ class ItemIndexTest < ActionDispatch::IntegrationTest
     assert_empty @payload
   end
 
-  test "returns 422 if user is not logged in" do
+  test "returns 401 if user is not logged in" do
     user_logged_out_test(:get_checklist_items)
   end
 

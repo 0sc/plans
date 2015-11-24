@@ -49,7 +49,7 @@ class DestroyingItemTest < ActionDispatch::IntegrationTest
     assert_equal 10, @list.items.count
   end
 
-  test "returns 422 if user is not logged in" do
+  test "returns 401 if user is not logged in" do
     user_logged_out_test(:destroy_checklist_item)
   end
 

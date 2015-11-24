@@ -63,13 +63,13 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     assert_equal @item.reload.done, @payload["done"]
   end
 
-  test "it returns 422 if item id is invalid" do
+  test "returns 422 if item id is invalid" do
     id = @item.id
     @item.id = 1000
     assertions_with_no_message(id)
   end
 
-  test "it returns 422 if not strong params is invalid" do
+  test "returns 422 if not strong params is invalid" do
     patch "/v1/checklists/#{@list.id}/items/#{@item.id}", {
       name: @item.name, done: @item.done }.to_json,
       { 'Accept' => Mime::JSON,
@@ -80,22 +80,22 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     assert_equal @item, @item.reload
   end
 
-  test "it returns 422 if params is empty" do
+  test "returns 422 if params is empty" do
     @item.name = ""
     assertions_for_invalid_update_request("Name can't be blank")
   end
 
-  test "it returns 422 if name is too long" do
+  test "returns 422 if name is too long" do
     @item.name = Faker::Lorem.characters(101)
     assertions_for_invalid_update_request("Name is too long (maximum is 100 characters)")
   end
 
-  test "it returns 422 if name is too short" do
+  test "returns 422 if name is too short" do
     @item.name = Faker::Lorem.characters(1)
     assertions_for_invalid_update_request("Name is too short (minimum is 2 characters)")
   end
 
-  test "returns 422 if user is not logged in" do
+  test "returns 401 if user is not logged in" do
     user_logged_out_test(:update_checklist_item)
   end
 

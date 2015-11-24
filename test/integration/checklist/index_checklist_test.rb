@@ -50,7 +50,7 @@ class ChecklistIndexTest < ActionDispatch::IntegrationTest
     assert @payload.empty?
   end
 
-  test "returns 422 if user is not logged in" do
+  test "returns 401 if user is not logged in" do
     user_logged_out_test(:get_user_checklist)
   end
 
