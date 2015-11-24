@@ -32,7 +32,7 @@ module V1
           paginate = PaginationManager.new(params, @checklist.pending)
           render json: paginate.query, status: 200
         else
-          render json: "", status: 422
+          head 422, content_type: "application/json"
         end
       else
         paginate = PaginationManager.new(params, @checklist.items)
@@ -75,9 +75,9 @@ module V1
     param :checklist_id, Integer, required: true, desc: "Id of the checklist item belongs to"
     param :id, Integer, required: true, desc: "Item id"
     error code: 401, desc: "Unauthorized. Invalid token."
-    error code: 422, desc: "Invalid parameter sent"
+    error code: 404, desc: "Item not found."
     def show
-      render json: @item
+      render json: @item, status: 200
     end
 
     api :DELETE, '/v1/checklists/:checklist_id/items/:id', 'Destroy an item'
@@ -91,7 +91,7 @@ module V1
     param :checklist_id, Integer, required: true, desc: "Id of the checklist item belongs to"
     param :id, Integer, required: true, desc: "Item id"
     error code: 401, desc: "Unauthorized. Invalid token."
-    error code: 422, desc: "Invalid parameter sent"
+    error code: 404, desc: "Item not found."
     def destroy
       @item.destroy
       head 204
@@ -113,7 +113,7 @@ module V1
       param :name, String, allow_nil: true, desc: "New name for the checklist item."
     end
     error code: 401, desc: "Unauthorized. Invalid token."
-    error code: 422, desc: "Invalid parameter sent"
+    error code: 404, desc: "Item not found."
     def update
       if item_params.empty?
         render json: @item, status: 422
@@ -130,7 +130,7 @@ module V1
 
     def get_checklist_item
       @item = @checklist.items.find_by(id: params[:id])
-      render json: "", status: 422 unless @item
+      head 404, content_type: "application/json" unless @item
     end
 
     def item_params

@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       user.update!(active: true)
       render json: token(user), status: 200
     else
-      render json: "", status: 422
+      head 422
     end
   end
 
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
   error code: 422, desc: "User information could not be processed."
   def logout
     current_user.update(active: false)
-    render json: "", status: 200
+    head 200
   end
 
   private

@@ -8,7 +8,7 @@ module V1
 
     def get_checklist(col = :id, data = params[:id] )
       @checklist = @my_checklists.find_by(col => data)
-      render json: "", status: :unprocessable_entity unless @checklist
+      head 404, content_type: "application/json" unless @checklist
     end
   end
 end

@@ -10,9 +10,9 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     @payload = json(response.body)[@root] unless response.body.empty?
   end
 
-  def assertions_with_no_message(id = nil)
+  def assertions_with_no_message(id = nil, code = 422)
     update_checklist_item
-    assert_response 422
+    assert_response code
     assert_empty response.body
     @item.id = id if id
     assert_equal @item, @item.reload
@@ -33,18 +33,18 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     @item = @list.items.last
   end
 
-  test "returns 422 if checklist params is invalid" do
+  test "returns 404 if checklist params is invalid" do
     @list.id = 1000
-    assertions_with_no_message
+    assertions_with_no_message(nil, 404)
 
     @list.id = 00
-    assertions_with_no_message
+    assertions_with_no_message(nil, 404)
   end
 
-  test "returns 422 if checklist does not belong to user" do
+  test "returns 404 if checklist does not belong to user" do
     user = create(:user, email: Faker::Internet.email)
     @token = get_authorization_token(user.email, "pass")
-    assertions_with_no_message
+    assertions_with_no_message(nil, 404)
   end
 
   test "updates the name of item with valid params" do
@@ -63,10 +63,10 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     assert_equal @item.reload.done, @payload["done"]
   end
 
-  test "returns 422 if item id is invalid" do
+  test "returns 404 if item id is invalid" do
     id = @item.id
     @item.id = 1000
-    assertions_with_no_message(id)
+    assertions_with_no_message(id, 404)
   end
 
   test "returns 422 if not strong params is invalid" do

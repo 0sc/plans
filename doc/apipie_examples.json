@@ -6753,7 +6753,7 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if item is not found",
+      "title": "Returns 404 if item is not found",
       "verb": "GET",
       "path": "/v1/checklists/1/items/11",
       "versions": [
@@ -6762,12 +6762,12 @@
       "query": null,
       "request_data": null,
       "response_data": null,
-      "code": 422,
+      "code": 404,
       "show_in_doc": 1,
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist does not belong to user",
+      "title": "Returns 404 if checklist does not belong to user",
       "verb": "GET",
       "path": "/v1/checklists/1000/items/11",
       "versions": [
@@ -6776,7 +6776,7 @@
       "query": null,
       "request_data": null,
       "response_data": null,
-      "code": 422,
+      "code": 404,
       "show_in_doc": 1,
       "recorded": true
     },
@@ -6795,7 +6795,7 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if item is not found",
+      "title": "Returns 404 if item is not found",
       "verb": "GET",
       "path": "/v1/checklists/1/items/1000",
       "versions": [
@@ -6804,7 +6804,7 @@
       "query": null,
       "request_data": null,
       "response_data": null,
-      "code": 422,
+      "code": 404,
       "show_in_doc": 1,
       "recorded": true
     }
@@ -6859,7 +6859,7 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if item id is invalid",
+      "title": "Returns 404 if item id is invalid",
       "verb": "PATCH",
       "path": "/v1/checklists/1/items/1000",
       "versions": [
@@ -6873,7 +6873,7 @@
         }
       },
       "response_data": null,
-      "code": 422,
+      "code": 404,
       "show_in_doc": 1,
       "recorded": true
     },
@@ -6971,25 +6971,6 @@
     {
       "verb": "PATCH",
       "path": "/v1/checklists/1000/items/11",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": {
-        "item": {
-          "name": "Advoco succurro tabernus.",
-          "done": false
-        }
-      },
-      "response_data": null,
-      "code": 422,
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "title": "Returns 422 if checklist params is invalid",
-      "verb": "PATCH",
-      "path": "/v1/checklists/0/items/11",
       "versions": [
         "1.0"
       ],

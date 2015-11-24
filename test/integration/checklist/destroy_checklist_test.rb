@@ -20,9 +20,9 @@ class DestroyingChecklistTest < ActionDispatch::IntegrationTest
     assert_equal 9, @user.checklists.count
   end
 
-  test "returns 422 if checklist is not found" do
+  test "returns 404 if checklist is not found" do
     destroy_user_checklist(100)
-    assert_response 422
+    assert_response 404
     assert_empty response.body
     assert_equal 10, @user.checklists.count
   end

@@ -22,23 +22,23 @@ class ShowingItemTest < ActionDispatch::IntegrationTest
     assert_equal @item.name, @payload["name"]
   end
 
-  test "returns 422 if checklist is not found" do
+  test "returns 404 if checklist is not found" do
     show_checklist_item(1000)
-    assert_response 422
+    assert_response 404
     assert_empty response.body
   end
 
-  test "returns 422 if checklist does not belong to user" do
+  test "returns 404 if checklist does not belong to user" do
     user = create(:user, email: Faker::Internet.email)
     @token = get_authorization_token(user.email, "pass")
     show_checklist_item
-    assert_response 422
+    assert_response 404
     assert_empty response.body
   end
 
-  test "returns 422 if item is not found" do
+  test "returns 404 if item is not found" do
     show_checklist_item(@list.id, 1000)
-    assert_response 422
+    assert_response 404
     assert_empty response.body
   end
 

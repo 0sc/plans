@@ -11,6 +11,6 @@ class ApplicationController < ActionController::API
     @current_user = User.find_by(id: payload["user"])
     return if @current_user && @current_user.active
 
-    render json: "", status: 401
+    head 401, content_type: "application/json"
   end
 end

@@ -20,9 +20,9 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
     assert_equal 0, @list.items.count
   end
 
-  def assertions_with_no_message
+  def assertions_with_no_message(code = 422)
     create_checklist_item
-    assert_response 422
+    assert_response code
     assert_empty response.body
     assert_equal 0, @list.items.count
   end
@@ -41,18 +41,18 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
     assert_equal 1, @list.items.count
   end
 
-  test "returns 422 if checklist params is invalid" do
+  test "returns 404 if checklist params is invalid" do
     @list.id = 1000
-    assertions_with_no_message
+    assertions_with_no_message(404)
 
     @list.id = 00
-    assertions_with_no_message
+    assertions_with_no_message(404)
   end
 
-  test "returns 422 if checklist does not belong to user" do
+  test "returns 404 if checklist does not belong to user" do
     user = create(:user, email: Faker::Internet.email)
     @token = get_authorization_token(user.email, "pass")
-    assertions_with_no_message
+    assertions_with_no_message(404)
   end
 
   test "returns 422 if params is empty" do

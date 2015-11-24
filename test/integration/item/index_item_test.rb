@@ -17,11 +17,11 @@ class ItemIndexTest < ActionDispatch::IntegrationTest
     assert_equal 10, @list.items.count
   end
 
-  test "returns 422 if checklist doesn't belong to user" do
+  test "returns 404 if checklist doesn't belong to user" do
     user = create(:user, email: Faker::Internet.email)
     @token = get_authorization_token(user.email, "pass")
     get_checklist_items
-    assert_response 422
+    assert_response 404
     assert_empty response.body
     assert_equal 10, @list.items.count
   end

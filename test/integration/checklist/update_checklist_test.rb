@@ -32,9 +32,9 @@ class UpdatingChecklistTest < ActionDispatch::IntegrationTest
     assert_equal @list.reload.name, @payload["name"]
   end
 
-  test "returns 422 if checklist id is invalid" do
+  test "returns 404 if checklist id is invalid" do
     update_user_checklist(100)
-    assert_response 422
+    assert_response 404
     assert_empty response.body
     refute_equal "Modified", @list.reload.name
   end
