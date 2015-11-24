@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   resources :users, only: :create
   patch "/users", to: "users#update"
 

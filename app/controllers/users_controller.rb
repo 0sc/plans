@@ -2,6 +2,14 @@ class UsersController < ApplicationController
   serialization_scope nil
   before_action :authenticate_token, except: [:create, :login]
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, '/users', 'Create an user'
+  param :user, Hash do
+    param :email, :undef
+    param :name, :undef
+    param :password, :undef
+  end
+  error code: 422
   def create
     user = User.new(user_params)
     if user.save
@@ -12,6 +20,18 @@ class UsersController < ApplicationController
     end
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :PATCH, '/users', 'Update an user'
+  param :email, :undef
+  param :name, :undef
+  param :password, :undef
+  param :user, Hash do
+    param :email, :undef
+    param :name, :undef
+    param :password, :undef
+  end
+  error code: 401
+  error code: 422
   def update
     data = user_params
     if data.empty?
@@ -25,6 +45,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, '/auth/login'
+  param :user, Hash do
+    param :email, :undef
+    param :password, :undef
+  end
+  error code: 422
   def login
     user = User.find_by_email(user_params[:email])
     if user && user.authenticate(user_params[:password])
@@ -35,6 +62,9 @@ class UsersController < ApplicationController
     end
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/auth/logout'
+  error code: 401
   def logout
     current_user.update(active: false)
     render json: "", status: 200
