@@ -1,4 +1,4 @@
-class Checklist < List
+class Bucketlist < List
   belongs_to :user, foreign_key: :relationship_id
   has_many :items, foreign_key: :relationship_id, dependent: :destroy
 

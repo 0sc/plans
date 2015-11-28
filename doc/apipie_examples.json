@@ -1,20 +1,20 @@
 {
-  "checklists#create": [
+  "bucketlists#create": [
     {
-      "title": "Does not create checklist if name is too short",
+      "title": "Does not create bucketlist if name is too short",
       "verb": "POST",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "o"
         }
       },
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           "Name is too short (minimum is 2 characters)"
         ]
       },
@@ -23,15 +23,15 @@
       "recorded": true
     },
     {
-      "title": "Does not create checklist if auth_token is invalid",
+      "title": "Does not create bucketlist if auth_token is invalid",
       "verb": "POST",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "Hobart Mertz"
         }
       },
@@ -41,15 +41,15 @@
       "recorded": true
     },
     {
-      "title": "Does not create checklist if user is not logged in",
+      "title": "Does not create bucketlist if user is not logged in",
       "verb": "POST",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "Mr. Myrl Feest"
         }
       },
@@ -59,22 +59,22 @@
       "recorded": true
     },
     {
-      "title": "Creates checklist with valid params",
+      "title": "Creates bucketlist with valid params",
       "verb": "POST",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
-          "name": "My Checklist"
+        "bucketlist": {
+          "name": "My Bucketlist"
         }
       },
       "response_data": {
-        "checklist": {
+        "bucketlist": {
           "id": 1,
-          "name": "My Checklist",
+          "name": "My Bucketlist",
           "created_at": "2015-11-24T03:17:45.794Z",
           "updated_at": "2015-11-24T03:17:45.794Z"
         }
@@ -84,20 +84,20 @@
       "recorded": true
     },
     {
-      "title": "Does not create checklist if params is invalid",
+      "title": "Does not create bucketlist if params is invalid",
       "verb": "POST",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": ""
         }
       },
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           "Name can't be blank",
           "Name is too short (minimum is 2 characters)"
         ]
@@ -107,20 +107,20 @@
       "recorded": true
     },
     {
-      "title": "Does not create checklist if name is too long",
+      "title": "Does not create bucketlist if name is too long",
       "verb": "POST",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "2qm3n5uufwioiajncdzwsyl1yphe1vc27jn2ex02rveqxhgiaecn7z2fwa89pns3jgm7iiic2zhjr0qnladklm2czi4vj9x2orbjf"
         }
       },
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           "Name is too long (maximum is 100 characters)"
         ]
       },
@@ -129,11 +129,11 @@
       "recorded": true
     }
   ],
-  "checklists#destroy": [
+  "bucketlists#destroy": [
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "DELETE",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
@@ -147,7 +147,7 @@
     {
       "title": "Returns 401 for invalid token",
       "verb": "DELETE",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
@@ -159,9 +159,9 @@
       "recorded": true
     },
     {
-      "title": "Destroys checklist with valid params",
+      "title": "Destroys bucketlist with valid params",
       "verb": "DELETE",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
@@ -173,9 +173,9 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist is not found",
+      "title": "Returns 422 if bucketlist is not found",
       "verb": "DELETE",
-      "path": "/v1/checklists/100",
+      "path": "/v1/bucketlists/100",
       "versions": [
         "1.0"
       ],
@@ -187,18 +187,18 @@
       "recorded": true
     }
   ],
-  "checklists#index": [
+  "bucketlists#index": [
     {
-      "title": "Returns empty if the user has no checklist",
+      "title": "Returns empty if the user has no bucketlist",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "q",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
 
         ],
         "meta": {
@@ -216,7 +216,7 @@
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
@@ -228,16 +228,16 @@
       "recorded": true
     },
     {
-      "title": "Returns all the users checklists",
+      "title": "Returns all the users bucketlists",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "q",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 1,
             "name": "eqxayl8ilt",
@@ -312,16 +312,16 @@
       "recorded": true
     },
     {
-      "title": "Returns only checklists that match search params",
+      "title": "Returns only bucketlists that match search params",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "q=andela.com",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
 
         ],
         "meta": {
@@ -339,7 +339,7 @@
     {
       "title": "Returns 401 for invalid token",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
@@ -351,16 +351,16 @@
       "recorded": true
     },
     {
-      "title": "Returns only checklists that match search params",
+      "title": "Returns only bucketlists that match search params",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "q=list",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 11,
             "name": "firstLIST",
@@ -401,14 +401,14 @@
     {
       "title": "Returns page 1 if the page params is invalid",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page=invalid&limit=50",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 1,
             "name": "eqxayl8ilt",
@@ -725,14 +725,14 @@
     {
       "title": "Returns a max of 100 items per page",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page&limit=200",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 1,
             "name": "eqxayl8ilt",
@@ -1349,14 +1349,14 @@
     {
       "title": "Returns only 20 items if no limit is specified",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page&limit",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 1,
             "name": "eqxayl8ilt",
@@ -1493,14 +1493,14 @@
     {
       "title": "Lists only 20 items if no limit specified",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page&limit",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 1,
             "name": "eqxayl8ilt",
@@ -1637,14 +1637,14 @@
     {
       "title": "Returns 100 if the limit params is invalid",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page&limit=invalid",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 1,
             "name": "eqxayl8ilt",
@@ -2259,16 +2259,16 @@
       "recorded": true
     },
     {
-      "title": "Returns checklist in the given page and within the given limit",
+      "title": "Returns bucketlist in the given page and within the given limit",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page=5&limit=8",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 33,
             "name": "eqxayl8ilt",
@@ -2331,16 +2331,16 @@
       "recorded": true
     },
     {
-      "title": "Returns checklists in the given page and within the given limit",
+      "title": "Returns bucketlists in the given page and within the given limit",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page=50&limit=1",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 50,
             "name": "eqxayl8ilt",
@@ -2361,16 +2361,16 @@
       "recorded": true
     },
     {
-      "title": "Returns checklist in the given page and within the given limit",
+      "title": "Returns bucketlist in the given page and within the given limit",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page=2&limit=100",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           {
             "id": 101,
             "name": "eqxayl8ilt",
@@ -2987,14 +2987,14 @@
     {
       "title": "Returns empty result if page doesn't have items",
       "verb": "GET",
-      "path": "/v1/checklists",
+      "path": "/v1/bucketlists",
       "versions": [
         "1.0"
       ],
       "query": "page=1000&limit",
       "request_data": null,
       "response_data": {
-        "checklists": [
+        "bucketlists": [
 
         ],
         "meta": {
@@ -3010,11 +3010,11 @@
       "recorded": true
     }
   ],
-  "checklists#show": [
+  "bucketlists#show": [
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "GET",
-      "path": "/v1/checklists/1",
+      "path": "/v1/bucketlists/1",
       "versions": [
         "1.0"
       ],
@@ -3026,9 +3026,9 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist does not belong to user",
+      "title": "Returns 422 if bucketlist does not belong to user",
       "verb": "GET",
-      "path": "/v1/checklists/1",
+      "path": "/v1/bucketlists/1",
       "versions": [
         "1.0"
       ],
@@ -3040,16 +3040,16 @@
       "recorded": true
     },
     {
-      "title": "Shows the details of a valid checklist",
+      "title": "Shows the details of a valid bucketlist",
       "verb": "GET",
-      "path": "/v1/checklists/1",
+      "path": "/v1/bucketlists/1",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": null,
       "response_data": {
-        "checklist": {
+        "bucketlist": {
           "id": 1,
           "name": "eqxayl8ilt",
           "created_at": "2015-11-24T03:18:01.284Z",
@@ -3061,9 +3061,9 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist is not found",
+      "title": "Returns 422 if bucketlist is not found",
       "verb": "GET",
-      "path": "/v1/checklists/1000",
+      "path": "/v1/bucketlists/1000",
       "versions": [
         "1.0"
       ],
@@ -3075,22 +3075,22 @@
       "recorded": true
     }
   ],
-  "checklists#update": [
+  "bucketlists#update": [
     {
       "title": "Returns 422 if new name is too long",
       "verb": "PATCH",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "ewfujh3ml6btb7m4ip8c84ae0dqcmkk9sqwljyzanv9x6oeldekv0pl6e8c3uhrg5jvlcy1isbx1y3qvrm3o3dttpqv7jybwkn5bo"
         }
       },
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           "Name is too long (maximum is 100 characters)"
         ]
       },
@@ -3101,13 +3101,13 @@
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "PATCH",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "Modified"
         }
       },
@@ -3119,7 +3119,7 @@
     {
       "title": "Returns 401 if token is invalid",
       "verb": "PATCH",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
@@ -3128,7 +3128,7 @@
         "name": "Modified"
       },
       "response_data": {
-        "checklist": {
+        "bucketlist": {
           "id": 10,
           "name": "eqxayl8ilt",
           "created_at": "2015-11-24T03:18:15.922Z",
@@ -3142,18 +3142,18 @@
     {
       "title": "Returns 422 if params is empty",
       "verb": "PATCH",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": ""
         }
       },
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           "Name can't be blank",
           "Name is too short (minimum is 2 characters)"
         ]
@@ -3165,18 +3165,18 @@
     {
       "title": "Returns 422 if new name is too short",
       "verb": "PATCH",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "s"
         }
       },
       "response_data": {
-        "checklists": [
+        "bucketlists": [
           "Name is too short (minimum is 2 characters)"
         ]
       },
@@ -3185,15 +3185,15 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist id is invalid",
+      "title": "Returns 422 if bucketlist id is invalid",
       "verb": "PATCH",
-      "path": "/v1/checklists/100",
+      "path": "/v1/bucketlists/100",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "Modified"
         }
       },
@@ -3203,20 +3203,20 @@
       "recorded": true
     },
     {
-      "title": "Updates the details of a checklist with valid params",
+      "title": "Updates the details of a bucketlist with valid params",
       "verb": "PATCH",
-      "path": "/v1/checklists/10",
+      "path": "/v1/bucketlists/10",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
-        "checklist": {
+        "bucketlist": {
           "name": "Modified"
         }
       },
       "response_data": {
-        "checklist": {
+        "bucketlist": {
           "id": 10,
           "name": "Modified",
           "created_at": "2015-11-24T03:18:17.747Z",
@@ -3230,16 +3230,16 @@
   ],
   "items#create": [
     {
-      "title": "Returns 422 if checklist params is invalid",
+      "title": "Returns 422 if bucketlist params is invalid",
       "verb": "POST",
-      "path": "/v1/checklists/1000/items/",
+      "path": "/v1/bucketlists/1000/items/",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
         "item": {
-          "name": "Checklist Item"
+          "name": "Bucketlist Item"
         }
       },
       "response_data": null,
@@ -3248,16 +3248,16 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist params is invalid",
+      "title": "Returns 422 if bucketlist params is invalid",
       "verb": "POST",
-      "path": "/v1/checklists/0/items/",
+      "path": "/v1/bucketlists/0/items/",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
         "item": {
-          "name": "Checklist Item"
+          "name": "Bucketlist Item"
         }
       },
       "response_data": null,
@@ -3266,16 +3266,16 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist does not belong to user",
+      "title": "Returns 422 if bucketlist does not belong to user",
       "verb": "POST",
-      "path": "/v1/checklists/1/items/",
+      "path": "/v1/bucketlists/1/items/",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
         "item": {
-          "name": "Checklist Item"
+          "name": "Bucketlist Item"
         }
       },
       "response_data": null,
@@ -3286,7 +3286,7 @@
     {
       "title": "Returns 422 if name is too short",
       "verb": "POST",
-      "path": "/v1/checklists/1/items/",
+      "path": "/v1/bucketlists/1/items/",
       "versions": [
         "1.0"
       ],
@@ -3308,7 +3308,7 @@
     {
       "title": "Returns 422 if name is too short",
       "verb": "POST",
-      "path": "/v1/checklists/1/items/",
+      "path": "/v1/bucketlists/1/items/",
       "versions": [
         "1.0"
       ],
@@ -3330,20 +3330,20 @@
     {
       "title": "Creates new item with valid params",
       "verb": "POST",
-      "path": "/v1/checklists/1/items/",
+      "path": "/v1/bucketlists/1/items/",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
         "item": {
-          "name": "Checklist Item"
+          "name": "Bucketlist Item"
         }
       },
       "response_data": {
         "item": {
           "id": 2,
-          "name": "Checklist Item",
+          "name": "Bucketlist Item",
           "done": false,
           "created_at": "2015-11-24T03:17:42.013Z",
           "updated_at": "2015-11-24T03:17:42.013Z"
@@ -3356,14 +3356,14 @@
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "POST",
-      "path": "/v1/checklists/1/items/",
+      "path": "/v1/bucketlists/1/items/",
       "versions": [
         "1.0"
       ],
       "query": null,
       "request_data": {
         "item": {
-          "name": "Checklist Item"
+          "name": "Bucketlist Item"
         }
       },
       "response_data": null,
@@ -3374,7 +3374,7 @@
     {
       "title": "Returns 422 if params is empty",
       "verb": "POST",
-      "path": "/v1/checklists/1/items/",
+      "path": "/v1/bucketlists/1/items/",
       "versions": [
         "1.0"
       ],
@@ -3398,7 +3398,7 @@
   "items#destroy": [
     {
       "verb": "DELETE",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -3410,9 +3410,9 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist params is invalid",
+      "title": "Returns 422 if bucketlist params is invalid",
       "verb": "DELETE",
-      "path": "/v1/checklists/1000/items/11",
+      "path": "/v1/bucketlists/1000/items/11",
       "versions": [
         "1.0"
       ],
@@ -3426,7 +3426,7 @@
     {
       "title": "Returns 422 if item doesn't not belong to user",
       "verb": "DELETE",
-      "path": "/v1/checklists/1000/items/11",
+      "path": "/v1/bucketlists/1000/items/11",
       "versions": [
         "1.0"
       ],
@@ -3440,7 +3440,7 @@
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "DELETE",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -3452,9 +3452,9 @@
       "recorded": true
     },
     {
-      "title": "Destroys checklist with valid params",
+      "title": "Destroys bucketlist with valid params",
       "verb": "DELETE",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -3468,7 +3468,7 @@
     {
       "title": "Returns 422 if item is not found",
       "verb": "DELETE",
-      "path": "/v1/checklists/1/items/100",
+      "path": "/v1/bucketlists/1/items/100",
       "versions": [
         "1.0"
       ],
@@ -3482,9 +3482,9 @@
   ],
   "items#index": [
     {
-      "title": "Returns empty result if checklist doesn't have items",
+      "title": "Returns empty result if bucketlist doesn't have items",
       "verb": "GET",
-      "path": "/v1/checklists/12/items",
+      "path": "/v1/bucketlists/12/items",
       "versions": [
         "1.0"
       ],
@@ -3500,9 +3500,9 @@
       "recorded": true
     },
     {
-      "title": "Returns 422 if checklist doesn't belong to user",
+      "title": "Returns 422 if bucketlist doesn't belong to user",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3516,7 +3516,7 @@
     {
       "title": "Returns 422 query params is not understood",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3530,7 +3530,7 @@
     {
       "title": "Returns 401 if user is not logged in",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3544,7 +3544,7 @@
     {
       "title": "Lists only items that are marked as pending",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3638,7 +3638,7 @@
     {
       "title": "Lists only items that are marked as pending",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3683,7 +3683,7 @@
     {
       "title": "Returns 401 if token is invalid",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3695,9 +3695,9 @@
       "recorded": true
     },
     {
-      "title": "Lists all items in given valid checklist",
+      "title": "Lists all items in given valid bucketlist",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3784,7 +3784,7 @@
     {
       "title": "Returns empty result if page doesn't have items",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -3802,7 +3802,7 @@
     {
       "title": "Returns a max of 100 items per page",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -4519,7 +4519,7 @@
     {
       "title": "Returns page 1 if the page params is invalid",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -4886,7 +4886,7 @@
     {
       "title": "Lists only 20 items if no limit specified",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -5043,7 +5043,7 @@
     {
       "title": "Returns items in the give page and within the given limit",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -5116,7 +5116,7 @@
     {
       "title": "Returns items in the give page and within the given limit",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -5140,7 +5140,7 @@
     {
       "title": "Returns items in the give page and within the given limit",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -5857,7 +5857,7 @@
     {
       "title": "Returns only 20 items if no limit is specified",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -6014,7 +6014,7 @@
     {
       "title": "Returns 100 if the limit params is invalid",
       "verb": "GET",
-      "path": "/v1/checklists/1/items",
+      "path": "/v1/bucketlists/1/items",
       "versions": [
         "1.0"
       ],
@@ -6731,9 +6731,9 @@
   ],
   "items#show": [
     {
-      "title": "Shows the details of a checklist item with valid params",
+      "title": "Shows the details of a bucketlist item with valid params",
       "verb": "GET",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6755,7 +6755,7 @@
     {
       "title": "Returns 404 if item is not found",
       "verb": "GET",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6767,9 +6767,9 @@
       "recorded": true
     },
     {
-      "title": "Returns 404 if checklist does not belong to user",
+      "title": "Returns 404 if bucketlist does not belong to user",
       "verb": "GET",
-      "path": "/v1/checklists/1000/items/11",
+      "path": "/v1/bucketlists/1000/items/11",
       "versions": [
         "1.0"
       ],
@@ -6783,7 +6783,7 @@
     {
       "title": "Returns 401 if token is invalid",
       "verb": "GET",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6797,7 +6797,7 @@
     {
       "title": "Returns 404 if item is not found",
       "verb": "GET",
-      "path": "/v1/checklists/1/items/1000",
+      "path": "/v1/bucketlists/1/items/1000",
       "versions": [
         "1.0"
       ],
@@ -6813,7 +6813,7 @@
     {
       "title": "Returns 422 if name is too short",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6836,7 +6836,7 @@
     {
       "title": "Returns 422 if not strong params is invalid",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6861,7 +6861,7 @@
     {
       "title": "Returns 404 if item id is invalid",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/1000",
+      "path": "/v1/bucketlists/1/items/1000",
       "versions": [
         "1.0"
       ],
@@ -6880,7 +6880,7 @@
     {
       "title": "Updates item with valid params",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6906,7 +6906,7 @@
     },
     {
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6925,7 +6925,7 @@
     {
       "title": "Returns 401 for invalid token",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6944,7 +6944,7 @@
     {
       "title": "Updates the name of item with valid params",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -6970,7 +6970,7 @@
     },
     {
       "verb": "PATCH",
-      "path": "/v1/checklists/1000/items/11",
+      "path": "/v1/bucketlists/1000/items/11",
       "versions": [
         "1.0"
       ],
@@ -6989,7 +6989,7 @@
     {
       "title": "Returns 422 if name is too long",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],
@@ -7012,7 +7012,7 @@
     {
       "title": "Returns 422 if params is empty",
       "verb": "PATCH",
-      "path": "/v1/checklists/1/items/11",
+      "path": "/v1/bucketlists/1/items/11",
       "versions": [
         "1.0"
       ],

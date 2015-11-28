@@ -1,0 +1,149 @@
+<!doctype html>
+<title>Todo app</title>
+<script src="http://cdn.jsdelivr.net/mithril/0.2.0/mithril.min.js"></script>
+
+<script>
+var notification = "";
+var requestWrapper = function(opts){
+  return new function(){
+    var me = this;
+    me.opts = opts;
+    me.opts.data = { user: {} };
+    me.userName = function(value) { me.opts.data.user["name"] = value;};
+    me.userEmail = function(value) { me.opts.data.user["email"] = value };
+    me.userPassword = function(value) { me.opts.data.user["password"] = value };
+    me.success = me.loading = me.failed = false;
+    me.errorStatus = me.errorBody = '';
+    me.opts.background = true;
+    me.opts.extract = function(xhr){
+      if(xhr.status >= 300){ // error!
+        me.failed = true;	me.success = me.loading = false;
+        me.errorStatus = xhr.status;
+        me.data = m.route() === "/login" ? "Invalid email and password combination. Please try again." : xhr.responseText;
+        m.redraw();
+      }
+      return xhr.responseText;
+    }
+    me.go = function(){
+      me = me;
+      me.loading = true; me.success = me.failed = false;
+      m.request(me.opts)
+      .then(function(mydata){ // success!
+        me.success = true; me.failed = me.loading = false;
+        me.data = mydata;
+        if(m.route() === "/register") {
+          m.route("/login")
+          notification = "You can login in now";
+          m.redraw();
+        }
+        else {
+          console.log(mydata.auth_token);
+          window.location.assign("/bucketlist.html?/lists/"+mydata.auth_token)
+        }
+      });
+    }
+  }
+}
+</script>
+
+<div id="container"></div>
+<script>
+  var Menu = {
+    view: function(){
+      return [
+        btn("Register", "/register"),
+        btn("Login", "/login"),
+        m("hr"),
+        notice()
+      ];
+
+      function btn(name, route){
+        var isCurrent = (m.route() === route);
+        var click = function(){ m.route(route); };
+        return [
+          m("button" + (isCurrent ? ".active" : ''), { onclick: click}, name)
+        ];
+      };
+
+      function notice(){
+        if(notification.length === 0) { return; }
+        var notice = notification;
+        notification = "";
+        return m("p", notice)
+      }
+    }
+  };
+
+  function Form(content, placePlugin){
+    var submitLink = content === "login" ? "/auth/login" : "/users";
+    this.sendRequest = requestWrapper({method: "post", url: submitLink}),
+    this.view = function(){
+      return [
+        Menu.view(),
+        showRequestFeedback(this.sendRequest),
+        m("div", content == "login" ? "" : m("div", m("p", [
+          m("label","Name"),
+          m("br"),
+          m("input[type=text]", {onchange: m.withAttr("value", this.sendRequest.userName)}),
+          m("br")
+        ]))),
+        m("div", m("p", [
+          m("label","Email"),
+          m("br"),
+          m("input[type=email]", {onchange: m.withAttr("value", this.sendRequest.userEmail)}),
+          m("br")
+        ])),
+        m("div", m("p", [
+          m("label","Password"),
+          m("br"),
+          m("input[type=password]", {onchange: m.withAttr("value", this.sendRequest.userPassword)}),
+          m("br")
+        ])),
+        m("button.submit", {onclick: this.sendRequest.go }, content)
+      ];
+      function showRequestFeedback(sendRequest){
+        if(!sendRequest.failed){ return ''; }
+        return m(".error",[
+          m("p", "Error status: "+sendRequest.errorStatus),
+          sendRequest.data.length === 0 ? '' :
+          m("p", [
+            m("ul",[
+              sendRequest.data = JSON.parse(sendRequest.data),
+              sendRequest.data.users.map(function(user){
+                return m("li", user);
+              })
+            ])
+          ])
+        ])
+      }
+    }
+  }
+
+  function rlink(href, txt){
+    return [
+      m('a[href="'+href+'"]', {config: m.route}, txt), m("br")
+    ];
+  }
+
+  var Registration = new Form("Register");
+  var Login = new Form("login");
+  var Welcome = {
+    view: function(){
+      return [
+        Menu.view(),
+        m(".page", m("p",[
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        ])),
+        // m("hr"),
+        // Menu.view()
+      ];
+    }
+  }
+
+  m.route.mode = "search";
+  m.route(document.getElementById("container"), "/welcome", {
+    "/welcome": Welcome,
+    "/login": Login,
+    "/register": Registration
+  });
+</script>

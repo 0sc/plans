@@ -1,8 +1,8 @@
 require "test_helper"
 
 class CreatingItemTest < ActionDispatch::IntegrationTest
-  def create_checklist_item(name = "Checklist Item", list_id = @list.id)
-    post "/v1/checklists/#{list_id}/items/", {
+  def create_bucketlist_item(name = "Bucketlist Item", list_id = @list.id)
+    post "/v1/bucketlists/#{list_id}/items/", {
       item: { name: name} }.to_json,
       { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
 
@@ -14,14 +14,14 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
 
   def assertions_for_invalid_create_action(params, message)
     @root = "items"
-    create_checklist_item(params)
+    create_bucketlist_item(params)
     assert_response 422
     assert @payload.include? message
     assert_equal 0, @list.items.count
   end
 
   def assertions_with_no_message(code = 422)
-    create_checklist_item
+    create_bucketlist_item
     assert_response code
     assert_empty response.body
     assert_equal 0, @list.items.count
@@ -30,18 +30,18 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
   setup do
     user = create(:user)
     @token = get_authorization_token(user.email, "pass")
-    @list = create(:checklist, user: user)
+    @list = create(:bucketlist, user: user)
     assert_equal 0, @list.items.count
   end
 
   test "creates new item with valid params" do
-    create_checklist_item
+    create_bucketlist_item
     assert_response 201
-    assert_equal "Checklist Item", @payload["name"]
+    assert_equal "Bucketlist Item", @payload["name"]
     assert_equal 1, @list.items.count
   end
 
-  test "returns 404 if checklist params is invalid" do
+  test "returns 404 if bucketlist params is invalid" do
     @list.id = 1000
     assertions_with_no_message(404)
 
@@ -49,7 +49,7 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
     assertions_with_no_message(404)
   end
 
-  test "returns 404 if checklist does not belong to user" do
+  test "returns 404 if bucketlist does not belong to user" do
     user = create(:user, email: Faker::Internet.email)
     @token = get_authorization_token(user.email, "pass")
     assertions_with_no_message(404)
@@ -68,12 +68,12 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 401 if user is not logged in" do
-    user_logged_out_test(:create_checklist_item)
+    user_logged_out_test(:create_bucketlist_item)
   end
 
   test "returns 401 if token is invalid" do
     @token = ""
-    create_checklist_item
+    create_bucketlist_item
     assert_response 401
     assert_empty response.body
   end

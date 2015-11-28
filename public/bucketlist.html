@@ -1,0 +1,107 @@
+<!doctype html>
+<title>Todo app</title>
+<script src="http://cdn.jsdelivr.net/mithril/0.2.0/mithril.min.js"></script>
+
+<div id="container"></div>
+
+<script>
+  var heading = m.prop("");
+</script>
+<script>
+  var RequestWrapper = {}
+  RequestWrapper.xhrConfig = function(xhr){
+    xhr.setRequestHeader("Authorization", "Token "+token);
+  }
+  RequestWrapper.success = m.prop(false);
+  RequestWrapper.makeRequest = function(opts, callBack){
+    opts.config = RequestWrapper.xhrConfig;
+    return m.request(opts).then(function(result){
+      RequestWrapper.success(true);
+      callBack(result);
+      m.redraw();
+    }, function(xhr){
+      RequestWrapper.success(false);
+      callBack(xhr);
+      m.redraw();
+    });
+  }
+</script>
+<script>
+  var Bucketlists = {
+    data: m.prop(''),
+
+    controller: function(){
+      token = m.route.param("token");
+      payload = {
+        method: "get",
+        url: "/v1/bucketlists"
+      };
+      RequestWrapper.makeRequest(payload, Bucketlists.data);
+    },
+    view: function(){
+      return [
+        m("h1", "Here are your bucketlists"),
+        m("input[type=text]", {onchange: console.log("Field want to submit")}),
+        m("button.submit", {onclick: console.log("I want to submit")}, "New Bucketlist"),
+        m(".content", Bucketlists.showRequestData())
+      ];
+    },
+    showRequestData: function(){
+      var lists = Bucketlists.data();
+      if (Object.keys(lists).length > 0){
+        lists = lists.bucketlists;
+        return [
+          lists.length === 0 ? m("p","You have not created any list") :
+          m("ul", lists.map(function(list){
+            return m("li", m("a", {onclick: m.withAttr(list["name"], heading), href: "/items/"+list["id"]+"/"+token, config: m.route}, list["name"]))
+          }))
+        ];
+      }
+      else {
+        return "";
+      }
+    }
+  }
+
+  var Items = {
+    data: m.prop(''),
+
+    controller: function(){
+      id = m.route.param("id");
+      token = m.route.param("token");
+      payload = {
+        method: "get",
+        url: "/v1/bucketlists/"+id+"/items"
+      };
+      RequestWrapper.makeRequest(payload, Items.data)
+    },
+    view: function(){
+      return m(".items", [
+        m("h1", heading() + "Items"),
+        m(".content", Items.showRequestData())
+      ])
+    },
+    showRequestData: function(){
+      if (Object.keys(Items.data()).length > 0){
+        return [
+          Items.data().items.length === 0 ? "You are yet to add items to this bucketlist" :
+          Items.data().items.map(function(item){
+            return m("p",[
+              m("input[type=checkbox]", {checked: item.done}),
+              m("span", item.name)
+            ])
+          })
+        ]
+      }
+      else {
+        return "";
+      }
+    }
+  }
+</script>
+<script>
+  m.route(document.getElementById("container"), "/lists/:token", {
+    "/lists/:token": Bucketlists,
+    "/items/:id/:token": Items
+  });
+</script>

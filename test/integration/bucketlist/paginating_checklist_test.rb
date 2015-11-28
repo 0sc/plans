@@ -1,12 +1,12 @@
 require "test_helper"
 
-class PaginatingChecklistIndexTest < ActionDispatch::IntegrationTest
-  def get_user_checklist
-    get "/v1/checklists", {
+class PaginatingBucketlistIndexTest < ActionDispatch::IntegrationTest
+  def get_user_bucketlist
+    get "/v1/bucketlists", {
       page: @page, limit: @limit},{ 'Accept' => Mime::JSON,
       'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
     assert_equal Mime::JSON, response.content_type
-    @payload = json(response.body)["checklists"] unless response.body.empty?
+    @payload = json(response.body)["bucketlists"] unless response.body.empty?
   end
 
   def calc_first_item_id
@@ -14,7 +14,7 @@ class PaginatingChecklistIndexTest < ActionDispatch::IntegrationTest
   end
 
   def common_assertions(exp_size=@limit, allow  = false)
-    get_user_checklist
+    get_user_bucketlist
     assert_response 200
     assert_equal exp_size, @payload.size
 
@@ -28,11 +28,11 @@ class PaginatingChecklistIndexTest < ActionDispatch::IntegrationTest
   end
 
   setup do
-    user = create(:user_with_checklist, amount: 200)
+    user = create(:user_with_bucketlist, amount: 200)
     @token = get_authorization_token(user.email, "pass")
-    @first_item = user.checklists.first
-    @last_item = user.checklists.last
-    assert_equal 200, user.checklists.count
+    @first_item = user.bucketlists.first
+    @last_item = user.bucketlists.last
+    assert_equal 200, user.bucketlists.count
   end
 
   test "returns only 20 items if no limit is specified" do
@@ -79,7 +79,7 @@ class PaginatingChecklistIndexTest < ActionDispatch::IntegrationTest
 
   test "returns empty result if page doesn't have items" do
     @page = 1000
-    get_user_checklist
+    get_user_bucketlist
     assert_response 200
     assert_empty @payload
   end
