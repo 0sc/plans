@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class V1::UsersController < ApplicationController
   serialization_scope nil
   before_action :authenticate_token, except: [:create, :login]
 

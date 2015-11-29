@@ -32,11 +32,6 @@ module V1
 
     private
 
-    def get_bucketlist_item
-      @item = @bucketlist.items.find_by(id: params[:id])
-      head 404, content_type: "application/json" unless @item
-    end
-
     def item_params
       params.fetch(:item, {}).permit(:name, :done)
     end

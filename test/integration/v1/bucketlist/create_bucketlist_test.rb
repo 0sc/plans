@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CreatingCheckListTest < ActionDispatch::IntegrationTest
+class CreatingBucketlistTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user)
     @token = get_authorization_token(@user.email, "pass")

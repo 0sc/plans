@@ -6,7 +6,7 @@ module V1
     def index
       bucketlists = @my_bucketlists
       q = params[:q]
-      bucketlists = q ? bucketlists.where("name Like ?", "%#{q}%") : bucketlists.all
+      bucketlists = q ? bucketlists.search(q) : bucketlists.all
 
       paginate = PaginationManager.new(params, bucketlists)
       render json: paginate.query, meta: paginate.set_meta_tag, status: 200

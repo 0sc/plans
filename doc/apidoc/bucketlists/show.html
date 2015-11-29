@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>Plans 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/bucketlists.html'>
+      Bucketlists
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>show</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /v2/bucketlists/:id
+      <br>
+      <small>Show a bucketlist</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+<p>Show details of a Bucketlist</p>
+
+<p>This endpoint is used to retrieve more details of a given bucketlist such as created_at. It requires a valid user bucketlist id</p>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h2>Supported Formats</h2>
+  json
+
+  <h2>Errors</h2>
+    401
+    Unauthorized. Invalid token.
+    <br>
+    404
+    Bucketlist not found.
+    <br>
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">// Returns 401 if user is not logged in
+GET /v1/bucketlists/1
+401</pre>
+    <pre class="prettyprint">// Returns 404 if bucketlist is not found
+GET /v1/bucketlists/1000
+404</pre>
+    <pre class="prettyprint">// Returns 404 if bucketlist is not found
+GET /v1/bucketlists/1
+404</pre>
+    <pre class="prettyprint">// Shows the details of a valid bucketlist
+GET /v1/bucketlists/1
+200
+{
+  &quot;bucketlist&quot;: {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;f6hj81ury9&quot;,
+    &quot;date_created&quot;: &quot;2015-11-30 01:18:30&quot;,
+    &quot;date_modified&quot;: &quot;2015-11-30 01:18:30&quot;,
+    &quot;created_by&quot;: 1,
+    &quot;items&quot;: []
+  }
+}</pre>
+
+  <h2>Params</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Id of the user bucketlist to fetch.</p>
+
+        <br>
+        Value: 
+<p>Must be Integer</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer>&copy; 2015 Oscar | Andela</footer>
+  </div>
+  <script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Plans 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Users
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Users
+    <br>
+    <small>Managing User profile</small>
+  </h1>
+</div>
+
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/users/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /users
+          </a>
+          <br>
+          <small>Create a user</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+<p>Create User</p>
+
+<p>This endpoint is used to create a new user profile.</p>
+
+
+  <h3>Supported Formats</h3>
+  json
+
+  <h3>Errors</h3>
+    422
+    Invalid parameter sent
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">// Does not create user with invalid email
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Oscar&quot;,
+    &quot;email&quot;: &quot;454@#(*)&quot;,
+    &quot;password&quot;: &quot;tcpu1asg6zv&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Email is invalid&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Does not create user with empty email
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Oscar&quot;,
+    &quot;email&quot;: &quot;&quot;,
+    &quot;password&quot;: &quot;fvbuxyd1sxx&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Email can&#39;t be blank&quot;,
+    &quot;Email is invalid&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Does not create user with short name
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;e&quot;,
+    &quot;email&quot;: &quot;jarvis.schmeler@kerluke.com&quot;,
+    &quot;password&quot;: &quot;2mhsaduqwa&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Name is too short (minimum is 2 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Does not create user with empty name
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;email@email.com&quot;,
+    &quot;password&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Password can&#39;t be blank&quot;,
+    &quot;Name can&#39;t be blank&quot;,
+    &quot;Name is too short (minimum is 2 characters)&quot;,
+    &quot;Email has already been taken&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Does not create user with empty params
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;&quot;,
+    &quot;password&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Password can&#39;t be blank&quot;,
+    &quot;Name can&#39;t be blank&quot;,
+    &quot;Name is too short (minimum is 2 characters)&quot;,
+    &quot;Email can&#39;t be blank&quot;,
+    &quot;Email is invalid&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Does not create user with long name
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;i9elfyek180bf1moqawolp1j6wpp7cq1dia5yvfxnum12qqdquu&quot;,
+    &quot;email&quot;: &quot;bertram_kirlin@murphy.org&quot;,
+    &quot;password&quot;: &quot;npxko5it9lc&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Name is too long (maximum is 50 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Does not create user with empty password
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Oscar&quot;,
+    &quot;email&quot;: &quot;antonietta.cain@quigley.io&quot;,
+    &quot;password&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Password can&#39;t be blank&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Creates user with valid params
+POST /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Oscar&quot;,
+    &quot;email&quot;: &quot;deon@johnson.io&quot;,
+    &quot;password&quot;: &quot;nt5sqe611w&quot;
+  }
+}
+201
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Oscar&quot;,
+    &quot;email&quot;: &quot;deon@johnson.io&quot;,
+    &quot;created_at&quot;: &quot;2015-11-30T01:19:21.070Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-11-30T01:19:21.070Z&quot;
+  }
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[email] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Email for login</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[name] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[password] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>password for login</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/users/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PATCH /users
+          </a>
+          <br>
+          <small>Update User information</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+<p>Update User Profile</p>
+
+<p>This endpoint is used to update the user profile details.</p>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h3>Supported Formats</h3>
+  json
+
+  <h3>Errors</h3>
+    401
+    Unauthorized. Token is probably invalid.
+    <br>
+    422
+    Invalid parameter sent
+    <br>
+    400
+    Empty request params
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">// Returns 422 for request with invalid email
+PATCH /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Milo Kemmer I&quot;,
+    &quot;email&quot;: &quot;4546$%$&quot;,
+    &quot;password&quot;: &quot;4xbe806agqv&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Email is invalid&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Returns 401 for request with invalid token
+PATCH /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;yeenia@kaulke.name&quot;,
+    &quot;password&quot;: &quot;password&quot;
+  }
+}
+401</pre>
+    <pre class="prettyprint">// Returns 422 for request with empty params
+PATCH /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;&quot;,
+    &quot;password&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Name can&#39;t be blank&quot;,
+    &quot;Name is too short (minimum is 2 characters)&quot;,
+    &quot;Email can&#39;t be blank&quot;,
+    &quot;Email is invalid&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Returns 400 for request without strong params
+PATCH /users
+{
+  &quot;name&quot;: &quot;NewName&quot;,
+  &quot;email&quot;: &quot;new@email.com&quot;,
+  &quot;password&quot;: &quot;newpass&quot;
+}
+400
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Darlene Sporer&quot;,
+    &quot;email&quot;: &quot;yeenia@kaulke.name&quot;,
+    &quot;created_at&quot;: &quot;2015-11-30T01:18:54.475Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-11-30T01:18:54.499Z&quot;
+  }
+}</pre>
+    <pre class="prettyprint">// Returns 200 for request with valid params
+PATCH /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Eladio Schaefer&quot;,
+    &quot;email&quot;: &quot;email@email.com&quot;,
+    &quot;password&quot;: &quot;uysy4ba18iu&quot;
+  }
+}
+200
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;Eladio Schaefer&quot;,
+    &quot;email&quot;: &quot;email@email.com&quot;,
+    &quot;created_at&quot;: &quot;2015-11-30T01:18:54.615Z&quot;,
+    &quot;updated_at&quot;: &quot;2015-11-30T01:18:54.742Z&quot;
+  }
+}</pre>
+    <pre class="prettyprint">// Returns 422 if request params is empty
+PATCH /users
+{
+  &quot;user&quot;: {
+    &quot;name&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;&quot;,
+    &quot;password&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;users&quot;: [
+    &quot;Name can&#39;t be blank&quot;,
+    &quot;Name is too short (minimum is 2 characters)&quot;,
+    &quot;Email can&#39;t be blank&quot;,
+    &quot;Email is invalid&quot;
+  ]
+}</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[email] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Email for login</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[name] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[password] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>password for login</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/users/login.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-login'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /auth/login
+          </a>
+          <br>
+          <small></small>
+        </h2>
+    </div>
+
+
+    <div id='description-login' class='collapse accordion-body'>
+      
+<p>Authenticate User</p>
+
+<p>This endpoint is used to authenticate a user account.</p>
+
+
+  <h3>Supported Formats</h3>
+  json
+
+  <h3>Errors</h3>
+    422
+    Query params could not be processed. User not yet created or invalid params provided.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">// Logs user in with valid params and returns auth_token
+POST /auth/login
+{
+  &quot;user&quot;: {
+    &quot;email&quot;: &quot;yeenia@kaulke.name&quot;,
+    &quot;password&quot;: &quot;pass&quot;
+  }
+}
+200
+{
+  &quot;auth_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjoxLCJleHAiOjE0NDg5MzI3MDN9.yr8T4TjRufkORvAsV5_OLcxIb9-3Dl0klldyBn2kVr2jwxelGRMgCKCUbhEx647bgNv_6Kjvv_KOj1tYHvtw_w&quot;
+}</pre>
+    <pre class="prettyprint">// Returns 422 if email is not found
+POST /auth/login
+{
+  &quot;user&quot;: {
+    &quot;email&quot;: &quot;floie@becker.info&quot;,
+    &quot;password&quot;: &quot;pass&quot;
+  }
+}
+422</pre>
+    <pre class="prettyprint">// Return 422 with invalid params
+POST /auth/login
+{
+  &quot;user&quot;: {
+    &quot;email&quot;: &quot;&quot;,
+    &quot;password&quot;: &quot;&quot;
+  }
+}
+422</pre>
+
+  <h3>Params</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[email] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>User email</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>user[password] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>User password</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/users/logout.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-logout'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /auth/logout
+          </a>
+          <br>
+          <small></small>
+        </h2>
+    </div>
+
+
+    <div id='description-logout' class='collapse accordion-body'>
+      
+<p>Logout user</p>
+
+<p>This endpoint is used to terminate access to an authenticated account by invalidating the token if it has not expired.</p>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h3>Supported Formats</h3>
+  json
+
+  <h3>Errors</h3>
+    401
+    Unauthorized. Token is probably invalid.
+    <br>
+
+
+  <h3>Examples</h3>
+    <pre class="prettyprint">GET /auth/logout
+401</pre>
+    <pre class="prettyprint">// Logs out user
+GET /auth/logout
+200</pre>
+    <pre class="prettyprint">// Returns 401 if token is invalid
+GET /auth/logout
+401</pre>
+    <pre class="prettyprint">// Returns 401 if user is not logged in
+GET /auth/logout
+401</pre>
+
+
+
+
+    </div>
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer>&copy; 2015 Oscar | Andela</footer>
+  </div>
+  <script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

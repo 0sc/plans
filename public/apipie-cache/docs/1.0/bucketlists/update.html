@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../../docs/1.0.html'>Plans 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../../docs/1.0/bucketlists.html'>
+      Bucketlists
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>update</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      PATCH /v1/bucketlists/:id
+      <br>
+      <small>Update a bucketlist</small>
+    </h1>
+  </div>
+  <div class='page-header'>
+    <h1>
+      PUT /v1/bucketlists/:id
+      <br>
+      <small>Update a bucketlist</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+<p>Update a Bucketlist</p>
+
+<p>This endpoint is used to update the details of a given bucketlist. It requires a valid user bucketlist id and new name for the bucketlist.</p>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h2>Supported Formats</h2>
+  json
+
+  <h2>Errors</h2>
+    401
+    Unauthorized. Invalid token.
+    <br>
+    422
+    Invalid parameter sent
+    <br>
+    400
+    Empty request params.
+    <br>
+    404
+    Bucketlist not found.
+    <br>
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">// Returns 422 if params is empty
+PATCH /v1/bucketlists/10
+{
+  &quot;bucketlist&quot;: {
+    &quot;name&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;bucketlists&quot;: [
+    &quot;Name can&#39;t be blank&quot;,
+    &quot;Name is too short (minimum is 2 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Returns 404 if bucketlist id is invalid
+PATCH /v1/bucketlists/100
+{
+  &quot;bucketlist&quot;: {
+    &quot;name&quot;: &quot;Modified&quot;
+  }
+}
+404</pre>
+    <pre class="prettyprint">// Returns 400 if bucketlist does not belong to user
+PATCH /v1/bucketlists/10
+{
+  &quot;name&quot;: &quot;Modified&quot;
+}
+400
+{
+  &quot;bucketlist&quot;: {
+    &quot;id&quot;: 10,
+    &quot;name&quot;: &quot;f6hj81ury9&quot;,
+    &quot;date_created&quot;: &quot;2015-11-30 01:19:15&quot;,
+    &quot;date_modified&quot;: &quot;2015-11-30 01:19:15&quot;,
+    &quot;created_by&quot;: 1,
+    &quot;items&quot;: []
+  }
+}</pre>
+    <pre class="prettyprint">// Updates the details of a bucketlist with valid params
+PATCH /v1/bucketlists/10
+{
+  &quot;bucketlist&quot;: {
+    &quot;name&quot;: &quot;Modified&quot;
+  }
+}
+200
+{
+  &quot;bucketlist&quot;: {
+    &quot;id&quot;: 10,
+    &quot;name&quot;: &quot;Modified&quot;,
+    &quot;date_created&quot;: &quot;2015-11-30 01:19:16&quot;,
+    &quot;date_modified&quot;: &quot;2015-11-30 01:19:16&quot;,
+    &quot;created_by&quot;: 1,
+    &quot;items&quot;: []
+  }
+}</pre>
+    <pre class="prettyprint">// Returns 422 if name is too short
+PATCH /v1/bucketlists/10
+{
+  &quot;bucketlist&quot;: {
+    &quot;name&quot;: &quot;4&quot;
+  }
+}
+422
+{
+  &quot;bucketlists&quot;: [
+    &quot;Name is too short (minimum is 2 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Returns 422 if name is too long
+PATCH /v1/bucketlists/10
+{
+  &quot;bucketlist&quot;: {
+    &quot;name&quot;: &quot;ks2qjhofx2gnpuk9v7mnodmzsmkzu177obk81tn5jddldhvfqd5e7d90dbbwtwjmrtpixz2vxr2tnji4zcj4pbqjj6tu35d92r4uz&quot;
+  }
+}
+422
+{
+  &quot;bucketlists&quot;: [
+    &quot;Name is too long (maximum is 100 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">// Returns 401 if user is not logged in
+PATCH /v1/bucketlists/10
+{
+  &quot;bucketlist&quot;: {
+    &quot;name&quot;: &quot;Modified&quot;
+  }
+}
+401</pre>
+
+  <h2>Params</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>bucketlist </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>bucketlist[name] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>New name for the bucketlist</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer>&copy; 2015 Oscar | Andela</footer>
+  </div>
+  <script type='text/javascript' src='../../../docs/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../../docs/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../../docs/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../../docs/javascripts/apipie.js'></script>
+</body>
+</html>

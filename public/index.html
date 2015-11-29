@@ -131,9 +131,12 @@ var requestWrapper = function(opts){
     view: function(){
       return [
         Menu.view(),
-        m(".page", m("p",[
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        ])),
+        m(".page", [
+          m("p", "Plans provides an API service that allows user create and manage bucketlists (and bucketlist items)."),
+          m("p", "Users of the service can have many bucketlists and a bucketlist can have many items. Items can be marked as done or pending. A possible flow of the use of the API service is outlined below."),
+          m("p",[m("a[href='http://github.com/andela-ooranagwa/plans']", "view project on Github")]),
+          m("a[href='/docs']", "view project on documentation")
+        ]),
         // m("hr"),
         // Menu.view()
       ];

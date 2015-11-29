@@ -7,6 +7,9 @@ gem "rails-api"
 gem "bcrypt", "~> 3.1.7"
 gem "jwt"
 gem "active_model_serializers"
+gem "apipie-rails"
+gem "maruku"
+gem "versionist"
 
 group :development, :test do
   gem "sqlite3"
