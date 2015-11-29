@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../../docs/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../../docs/1.0.html'>Plans 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../../docs/1.0/items.html'>
+      Items
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>show</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /v1/checklists/:checklist_id/items/:id
+      <br>
+      <small>Show an item</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+<p>== Show details of an Item</p>
+
+<h1 id="this_endpoint_is_used_to_retrieve_more_details_of_a_given_item_such_as_created_at_completed_status_it_requires_a_valid_checklist_id_and_item_id">This endpoint is used to retrieve more details of a given item such as created_at, completed status. It requires a valid checklist id and item id</h1>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h2>Supported Formats</h2>
+  json
+
+  <h2>Errors</h2>
+    401
+    Unauthorized. Invalid token.
+    <br>
+    404
+    Item not found.
+    <br>
+    404
+    Specified bucketlist not found.
+    <br>
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">GET /v1/bucketlists/1/items/11
+404</pre>
+    <pre class="prettyprint">GET /v1/bucketlists/1/items/11
+200
+{
+  &quot;item&quot;: {
+    &quot;id&quot;: 11,
+    &quot;name&quot;: &quot;Suadeo cuppedia video degenero caute.&quot;,
+    &quot;done&quot;: false,
+    &quot;date_created&quot;: &quot;2015-11-29 11:30:08&quot;,
+    &quot;date_modified&quot;: &quot;2015-11-29 11:30:08&quot;
+  }
+}</pre>
+    <pre class="prettyprint">GET /v1/bucketlists/1000/items/11
+404</pre>
+    <pre class="prettyprint">GET /v1/bucketlists/1/items/1000
+404</pre>
+    <pre class="prettyprint">GET /v1/bucketlists/1/items/11
+401</pre>
+
+  <h2>Params</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>checklist_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Id of the checklist item belongs to</p>
+
+        <br>
+        Value: 
+<p>Must be Integer</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Item id</p>
+
+        <br>
+        Value: 
+<p>Must be Integer</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer>&copy; 2015 Oscar | Andela</footer>
+  </div>
+  <script type='text/javascript' src='../../../docs/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../../docs/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../../docs/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../../docs/javascripts/apipie.js'></script>
+</body>
+</html>
