@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>Plans 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/items.html'>
+      Items
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>create</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      POST /v1/checklists/:checklist_id/items
+      <br>
+      <small>Create an item</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+<p>== Create new Item</p>
+
+<h1 id="this_endpoint_is_used_to_create_a_new_item_in_the_given_checklist_it_requires_a_name_for_the_new_item_optionally_you_can_specify_whether_the_item_has_been_completed_true_or_not_false">This endpoint is used to create a new item in the given checklist. It requires a name for the new item. Optionally, you can specify whether the item has been completed (true) or not (false).</h1>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h2>Supported Formats</h2>
+  json
+
+  <h2>Errors</h2>
+    401
+    Unauthorized. Invalid token.
+    <br>
+    422
+    Invalid parameter sent
+    <br>
+    404
+    Specified bucketlist not found
+    <br>
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">POST /v1/bucketlists/1/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;g&quot;
+  }
+}
+422
+{
+  &quot;items&quot;: [
+    &quot;Name is too short (minimum is 2 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/1/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;omiasp978tfbca785dx6afycmcemj2gqogx3butf0txg3ldp1b7comh1wjxr5et7pp2mmn5i8bt0z5yc2hv2nbe7azua825uigdlx&quot;
+  }
+}
+422
+{
+  &quot;items&quot;: [
+    &quot;Name is too long (maximum is 100 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/1/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;Bucketlist Item&quot;
+  }
+}
+401</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/1000/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;Bucketlist Item&quot;
+  }
+}
+404</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/0/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;Bucketlist Item&quot;
+  }
+}
+404</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/1/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;&quot;
+  }
+}
+422
+{
+  &quot;items&quot;: [
+    &quot;Name can&#39;t be blank&quot;,
+    &quot;Name is too short (minimum is 2 characters)&quot;
+  ]
+}</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/1/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;Bucketlist Item&quot;
+  }
+}
+404</pre>
+    <pre class="prettyprint">POST /v1/bucketlists/1/items/
+{
+  &quot;item&quot;: {
+    &quot;name&quot;: &quot;Bucketlist Item&quot;
+  }
+}
+201
+{
+  &quot;item&quot;: {
+    &quot;id&quot;: 2,
+    &quot;name&quot;: &quot;Bucketlist Item&quot;,
+    &quot;done&quot;: false,
+    &quot;date_created&quot;: &quot;2015-11-29 11:29:47&quot;,
+    &quot;date_modified&quot;: &quot;2015-11-29 11:29:47&quot;
+  }
+}</pre>
+
+  <h2>Params</h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Param name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>checklist_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Id of the checklist item belongs to</p>
+
+        <br>
+        Value: 
+<p>Must be Integer</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>item </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>item[name] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Item name</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>item[done] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Status of the item. Has it been completed? ‘true’ or ‘false’</p>
+
+        <br>
+        Value: 
+<p>Must be ‘true’ or ‘false’</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer>&copy; 2015 Oscar | Andela</footer>
+  </div>
+  <script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

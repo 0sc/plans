@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+  <link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>Plans 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/bucketlists.html'>
+      Bucketlists
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>destroy</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      DELETE /v1/bucketlists/:id
+      <br>
+      <small>Destroy a bucketlist</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+<p>== Destroy a Bucketlist</p>
+
+<h1 id="this_endpoint_is_used_to_delete_a_bucketlist_and_all_its_associated_items">This endpoint is used to delete a bucketlist and all it’s associated items.</h1>
+
+<p>Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).</p>
+
+
+  <h2>Supported Formats</h2>
+  json
+
+  <h2>Errors</h2>
+    401
+    Unauthorized. Invalid token.
+    <br>
+    404
+    Bucketlist not found.
+    <br>
+
+
+  <h2>Examples</h2>
+    <pre class="prettyprint">DELETE /v1/bucketlists/10
+401</pre>
+    <pre class="prettyprint">DELETE /v1/bucketlists/10
+401</pre>
+    <pre class="prettyprint">DELETE /v1/bucketlists/10
+204</pre>
+    <pre class="prettyprint">DELETE /v1/bucketlists/100
+404</pre>
+
+
+
+
+</div>
+
+
+        
+      </div>
+    </div>
+    <hr>
+    <footer>&copy; 2015 Oscar | Andela</footer>
+  </div>
+  <script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

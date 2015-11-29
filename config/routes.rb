@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # root "test.html"
+  apipie
   resources :users, only: :create
   patch "/users", to: "users#update"
 
@@ -11,5 +13,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/', to: redirect('/test.html')
+  match "*path", to: redirect("/docs"), via: :all
 end

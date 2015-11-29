@@ -32,7 +32,8 @@ module V1
     # methods for setting meta tags
 
     def set_total_pages
-      (query_object.count / limit).ceil
+      size = query_object.count
+      limit > size ? 1 : (size / limit).ceil
     end
 
     def set_meta_tag
