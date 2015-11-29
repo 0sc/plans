@@ -48,7 +48,7 @@ class UpdatingUserTest < ActionDispatch::IntegrationTest
         "Authorization" => "Token #{@token}" }
 
     assert_equal Mime::JSON, response.content_type
-    assert_response 422
+    assert_response 400
     payload = json(response.body)["user"]
     assert_equal @user.name, payload["name"]
     assert_equal @user.email, payload["email"]

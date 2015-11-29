@@ -1,9 +1,9 @@
-class CreateChecklistItems < ActiveRecord::Migration
+class CreateBucketlistItems < ActiveRecord::Migration
   def change
-    create_table :checklist_items do |t|
+    create_table :bucketlist_items do |t|
       t.boolean :done, default: false
       t.string :name
-      t.references :checklist, index: true
+      t.references :bucketlist, index: true
 
       t.timestamps null: false
     end

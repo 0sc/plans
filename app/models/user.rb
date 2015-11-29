@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_many :checklists, foreign_key: :relationship_id, dependent: :destroy
+  has_many :bucketlists, foreign_key: :relationship_id, dependent: :destroy
 
   VALID_EMAIL = /\A[\w]+\.?[\w]+@[a-z\d\.]+[\w]+\.[a-z]+\z/i
 

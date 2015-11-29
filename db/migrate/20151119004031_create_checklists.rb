@@ -1,6 +1,6 @@
-class CreateChecklists < ActiveRecord::Migration
+class CreateBucketlists < ActiveRecord::Migration
   def change
-    create_table :checklists do |t|
+    create_table :bucketlists do |t|
       t.string :name
       t.references :user, index: true
 

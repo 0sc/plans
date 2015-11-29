@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::Serialization
+  include ProcessingUtilities
 
   def current_user
     head 401 unless @current_user
