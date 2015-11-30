@@ -10,7 +10,7 @@ module V1
     api :GET, '/v1/bucketlists', 'List bucketlists'
     description <<-EOS
       == Retrieve Bucketlists
-       This endpoint is used to retrieve a users' bucketlists. It optionally takes params to return the bucketlist in pages and the for limit of bucketlists to fetch per request. It could also be queried with a search params to return all bucketlists that match the params.
+       This endpoint is used to retrieve a users' bucketlists. It optionally takes params to return the bucketlist in pages and the limit of bucketlists to fetch per request. It could also be queried with a search params to return all bucketlists that match the params.
       === Authentication required
        Authentication token has to be passed as part of the request. It must be passed as HTTP header(TOKEN).
     EOS
@@ -22,7 +22,7 @@ module V1
     def index
       bucketlists = @my_bucketlists
       q = params[:q]
-      bucketlists = q ? bucketlists.where("name Like ?", "%#{q}%") : bucketlists.all
+      bucketlists = q ? bucketlists.search(q) : bucketlists.all
 
       paginate = PaginationManager.new(params, bucketlists)
       render json: paginate.query, meta: paginate.set_meta_tag, status: 200

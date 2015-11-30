@@ -28,9 +28,13 @@ module ProcessingUtilities
     unless type
       head 422, content_type: "application/json"
     else
-      paginate = V1::PaginationManager.new(params, type)
+      paginate = PaginationManager.new(params, type)
       render json: paginate.query, status: 200
     end
   end
 
+  def get_bucketlist_item
+    @item = @bucketlist.items.find_by(id: params[:id])
+    head 404, content_type: "application/json" unless @item
+  end
 end

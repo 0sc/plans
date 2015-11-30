@@ -130,6 +130,11 @@ GEM
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    versionist (1.4.1)
+      activesupport (>= 3)
+      railties (>= 3)
+      yard (~> 0.7)
+    yard (0.8.7.6)
 
 PLATFORMS
   ruby
@@ -151,6 +156,7 @@ DEPENDENCIES
   simplecov
   spring
   sqlite3
+  versionist
 
 BUNDLED WITH
    1.10.6

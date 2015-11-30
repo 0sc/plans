@@ -9,4 +9,12 @@ class Bucketlist < List
   def completed
     items.where(done: true)
   end
+
+  def self.search(q)
+     where("name Like ?", "%#{q}%")
+  end
+
+  def self.not_mine(user)
+    all.where.not(user: user)
+  end
 end
