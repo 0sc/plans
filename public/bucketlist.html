@@ -34,7 +34,7 @@
       token = m.route.param("token");
       payload = {
         method: "get",
-        url: "/v1/bucketlists"
+        url: "/v2/bucketlists"
       };
       RequestWrapper.makeRequest(payload, Bucketlists.data);
     },
@@ -71,7 +71,7 @@
       token = m.route.param("token");
       payload = {
         method: "get",
-        url: "/v1/bucketlists/"+id+"/items"
+        url: "/v2/bucketlists/"+id+"/items"
       };
       RequestWrapper.makeRequest(payload, Items.data)
     },

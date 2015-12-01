@@ -10,14 +10,14 @@ Users of the service can have many bucketlists and a bucketlist can have many it
 
 The service requires users to register with a *name* (between 2 and 50 characters in length), a valid *email* and a *password*. A successful registration will return the user database information including the `user id`.
 
-[Create user documentation](http://localhost:4000/docs/1.0/users/create.html)
+[Create user documentation](http://pl-an.herokuapp.com/docs/1.0/users/create.html)
 
 
 ### login user
 
 After successfully creating an account, users can login using a validly registered *email* and *password* . A successful login will return an `auth_token` to be used for authenticating subsequent requests to the service. [*See the section on authentication for more information*](#)
 
-[Login documentation](http://localhost:4000/docs/1.0/users/login.html)
+[Login documentation](http://pl-an.herokuapp.com/docs/1.0/users/login.html)
 
 ### List bucketlists
 If you've followed this readme sequentially up until now, this query will (probably) return an empty result with a **200** status. _This should be because you are yet to create a bucketlist_. A query to `v2` might return a different result; checkout **Notes on V2** for more information.
@@ -33,25 +33,25 @@ An optional params `q` can be included with this request to search and return on
 Note: For now, bucketlists will have their contained items embedded with them. Future support for this feature in v1 is not guaranteed. Plans are ongoing to ensure that all requests made on v1 will carry out single operation and return only single results. If you will like to continue retrieving bucketlists with the items embedded, make sure to use v2
 ```
 
-[List bucketlist documentation](http://localhost:4000/docs/1.0/bucketlists/index.html)
+[List bucketlist documentation](http://pl-an.herokuapp.com/docs/1.0/bucketlists/index.html)
 
 ### Create bucketlist
 
 This require a valid name (between 2 and 100 characters in length). If successful, the result will comprise amongst other relevant information, the `bucketlist id` with can be used for making other bucketlist requests including the bucketlist items.
 
-[Create bucketlist documentation](http://localhost:4000/docs/1.0/bucketlists/create.html)
+[Create bucketlist documentation](http://pl-an.herokuapp.com/docs/1.0/bucketlists/create.html)
 
 ### Show bucketlist
 This returns details of the requested bucketlist using the `bucketlist id`. Common errors with this query range from invalid `id` to `unauthorized access`.
 
-[Show bucketlist documentation](http://localhost:4000/docs/1.0/bucketlists/show.html)
+[Show bucketlist documentation](http://pl-an.herokuapp.com/docs/1.0/bucketlists/show.html)
 
 ### Create item
 Bucketlists contain items. Creating an item in a bucketlist requires the `id` of the bucketlist and a valid `entry` for the item.
 
 Optionally the item's `done` status can also be included. Note that `done` can only be either `true` or `false`.
 
-[Create item documentation](http://localhost:4000/docs/1.0/items/create.html)
+[Create item documentation](http://pl-an.herokuapp.com/docs/1.0/items/create.html)
 ### List items
 
 This returns the items in the requested bucketlist. Empty bucketlists will, expectedly, return an empty result (*varies for v2*).
@@ -61,11 +61,11 @@ An optional params, `status` can be included with the request to fetch either `d
 
 The most likely errors that could occur include invalid `bucketlist id`, `unauthorized access`
 
-[List item documentation](http://localhost:4000/docs/1.0/items/index.html)
+[List item documentation](http://pl-an.herokuapp.com/docs/1.0/items/index.html)
 ### Show item
 This serves to provide more information on a single bucketlist item. inclusive of the errors outline above, it is also prone to invalid `item id` error.
 
-[Show item documentation](http://localhost:4000/docs/1.0/items/show.html)
+[Show item documentation](http://pl-an.herokuapp.com/docs/1.0/items/show.html)
 
 ### Update Item
 Updating the details of an item requires a **valid** `name` and/or `done` status.
@@ -76,35 +76,35 @@ done can be either true or false
 
 Be mindful of the `errors` highlighted above while using this query.
 
-[Update item documentation](http://localhost:4000/docs/1.0/items/update.html)
+[Update item documentation](http://pl-an.herokuapp.com/docs/1.0/items/update.html)
 
 ### Delete Item
 
 Items can be deleted from a bucketlist using this request.  It requires the `id` of the item and that of the bucketlist that contains it.
 
-[Delete Item documentation](http://localhost:4000/docs/1.0/items/destroy.html)
+[Delete Item documentation](http://pl-an.herokuapp.com/docs/1.0/items/destroy.html)
 
 ### Update bucketlist
 With a valid `bucketlist id`, this request is used to change the name of a bucketlist. Request will be subject to **validation** of the provided name as pointed out earlier.
 
-[Update bucketlist documentation](http://localhost:4000/docs/1.0/bucketlists/update.html)
+[Update bucketlist documentation](http://pl-an.herokuapp.com/docs/1.0/bucketlists/update.html)
 ### Delete bucketlist
 
 This request deletes a bucketlist and the items it contain. A `204` status signifies a successful transaction.
 
-[Delete bucketlist documentation](http://localhost:4000/docs/1.0/bucketlists/destroy.html)
+[Delete bucketlist documentation](http://pl-an.herokuapp.com/docs/1.0/bucketlists/destroy.html)
 
 ### Update user information
 
 User `email`, `password` and/or `name` can be updated using this request. The provided update entries must meet the validation for their respective categories.
 
-[Update user information](http://localhost:4000/docs/1.0/users/update.html)
+[Update user information](http://pl-an.herokuapp.com/docs/1.0/users/update.html)
 
 ### Logout user
 
 Log out a user restricts their access to the service even if their `token` is not expired. Once logged out, a user will need to `log in` to use the service again.
 
-[Logout documentation](http://localhost:4000/docs/1.0/users/logout.html)
+[Logout documentation](http://pl-an.herokuapp.com/docs/1.0/users/logout.html)
 
 ### Pagination
 The response for a (successful) `list bucketlist` and/or `list items` request is paginated. You can specify these using `limit` and/or `page` params. The `limit` specifies the number of results per page while `page` specifies the page to return. See the documentation for samples.
