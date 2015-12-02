@@ -6,7 +6,7 @@ module V1
       @my_bucketlists = current_user.bucketlists
     end
 
-    def get_bucketlist(col = :id, data = params[:id] )
+    def get_bucketlist(col = :id, data = params[:id])
       @bucketlist = @my_bucketlists.find_by(col => data)
       head 404, content_type: "application/json" unless @bucketlist
     end
