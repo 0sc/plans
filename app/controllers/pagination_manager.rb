@@ -40,7 +40,8 @@ class PaginationManager
   end
 
   def set_meta_tag
-    { pagination: {
+    {
+      pagination: {
         current_page: page,
         per_page: set_limit,
         total_pages: set_total_pages

@@ -2,8 +2,13 @@ require "test_helper"
 
 class V2ShowingItemTest < ActionDispatch::IntegrationTest
   def show_bucketlist_item(list_id = @list.id, id = @item.id)
-    get "/v2/bucketlists/#{list_id}/items/#{id}", {}, { 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    get(
+      "/v2/bucketlists/#{list_id}/items/#{id}",
+      {},
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
     assert_equal Mime::JSON, response.content_type
 
     @payload = json(response.body)["item"] unless response.body.empty?

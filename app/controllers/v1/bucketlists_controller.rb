@@ -4,9 +4,8 @@ module V1
     before_action :get_bucketlist, except: [:index, :create]
 
     def index
-      bucketlists = @my_bucketlists
       q = params[:q]
-      bucketlists = q ? bucketlists.search(q) : bucketlists.all
+      bucketlists = q ? @my_bucketlists.search(q) : @my_bucketlists.all
 
       paginate = PaginationManager.new(params, bucketlists)
       render json: paginate.query, meta: paginate.set_meta_tag, status: 200

@@ -2,8 +2,13 @@ require "test_helper"
 
 class UpdatingItemTest < ActionDispatch::IntegrationTest
   def update_bucketlist_item(list_id = @list.id, id = @item.id)
-    patch "/v1/bucketlists/#{list_id}/items/#{id}", { item: { name: @item.name, done: @item.done } }.to_json, { 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    patch(
+      "/v1/bucketlists/#{list_id}/items/#{id}",
+      { item: { name: @item.name, done: @item.done } }.to_json,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
     @root ||= "item"
@@ -70,10 +75,13 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 400 if strong params is invalid" do
-    patch "/v1/bucketlists/#{@list.id}/items/#{@item.id}", {
-      name: @item.name, done: @item.done }.to_json,
-      { 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    patch(
+      "/v1/bucketlists/#{@list.id}/items/#{@item.id}",
+      { name: @item.name, done: @item.done }.to_json,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
     assert_response 400
@@ -87,12 +95,14 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
 
   test "returns 422 if name is too long" do
     @item.name = Faker::Lorem.characters(101)
-    assertions_for_invalid_update_request("Name is too long (maximum is 100 characters)")
+    assertions_for_invalid_update_request(
+      "Name is too long (maximum is 100 characters)")
   end
 
   test "returns 422 if name is too short" do
     @item.name = Faker::Lorem.characters(1)
-    assertions_for_invalid_update_request("Name is too short (minimum is 2 characters)")
+    assertions_for_invalid_update_request(
+      "Name is too short (minimum is 2 characters)")
   end
 
   test "returns 401 if user is not logged in" do

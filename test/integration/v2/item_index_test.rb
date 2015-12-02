@@ -2,8 +2,13 @@ require "test_helper"
 
 class V2ItemIndexTest < ActionDispatch::IntegrationTest
   def get_bucketlist_items(list_id = @list.id, param = nil)
-    get "/v2/bucketlists/#{list_id}/items", {status: param},{ 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    get(
+      "/v2/bucketlists/#{list_id}/items",
+      { status: param },
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
     assert_equal Mime::JSON, response.content_type
 
     @payload = json(response.body)["items"] unless response.body.empty?
@@ -35,7 +40,9 @@ class V2ItemIndexTest < ActionDispatch::IntegrationTest
 
   test "lists only items that are marked completed" do
     done = @list.items.create(name: Faker::Name.name, done: true)
-    3.times { |n| @list.items.create(name: Faker::Name.name + n.to_s, done: true) }
+    3.times do |n|
+      @list.items.create(name: Faker::Name.name + n.to_s, done: true)
+    end
 
     get_bucketlist_items(@list.id, "done")
     assert_response 200
@@ -46,7 +53,9 @@ class V2ItemIndexTest < ActionDispatch::IntegrationTest
 
   test "lists only items that are marked as pending" do
     pending = @list.items.create(name: Faker::Name.name)
-    3.times { |n| @list.items.create(name: Faker::Name.name + n.to_s, done: true) }
+    3.times do |n|
+      @list.items.create(name: Faker::Name.name + n.to_s, done: true)
+    end
 
     get_bucketlist_items(@list.id, "pending")
     assert_response 200

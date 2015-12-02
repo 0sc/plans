@@ -13,7 +13,7 @@ module ProcessingUtilities
 
   def process_create_query(package)
     if package.save
-      render json: package, status: 201#, location: bucketlist
+      render json: package, status: 201 # location: bucketlist
     else
       render json: package.errors.full_messages, status: 422
     end
@@ -25,11 +25,11 @@ module ProcessingUtilities
       "pending" => @bucketlist.pending
     }
     type = action[params[:status]]
-    unless type
-      head 422, content_type: "application/json"
-    else
+    if type
       paginate = PaginationManager.new(params, type)
       render json: paginate.query, status: 200
+    else
+      head 422, content_type: "application/json"
     end
   end
 

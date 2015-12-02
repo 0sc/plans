@@ -2,9 +2,13 @@ require "test_helper"
 
 class CreatingItemTest < ActionDispatch::IntegrationTest
   def create_bucketlist_item(name = "Bucketlist Item", list_id = @list.id)
-    post "/v1/bucketlists/#{list_id}/items/", {
-      item: { name: name} }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    post(
+      "/v1/bucketlists/#{list_id}/items/",
+      { item: { name: name } }.to_json,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
 
@@ -60,11 +64,17 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 422 if name is too long" do
-    assertions_for_invalid_create_action(Faker::Lorem.characters(101), "Name is too long (maximum is 100 characters)")
+    assertions_for_invalid_create_action(
+      Faker::Lorem.characters(101),
+      "Name is too long (maximum is 100 characters)"
+    )
   end
 
   test "returns 422 if name is too short" do
-    assertions_for_invalid_create_action(Faker::Lorem.characters(1), "Name is too short (minimum is 2 characters)")
+    assertions_for_invalid_create_action(
+      Faker::Lorem.characters(1),
+      "Name is too short (minimum is 2 characters)"
+    )
   end
 
   test "returns 401 if user is not logged in" do

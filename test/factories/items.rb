@@ -3,5 +3,4 @@ FactoryGirl.define do
     name Faker::Lorem.sentence(3, true)
     done false
   end
-
 end

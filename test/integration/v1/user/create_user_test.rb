@@ -1,18 +1,23 @@
 require "test_helper"
 
 class CreatingUsersTest < ActionDispatch::IntegrationTest
-  def setup_user_post(name=nil, email=nil, password=nil, route = "/users")
+  def setup_user_post(name = nil, email = nil, password = nil, route = "/users")
     name ||= "Oscar"
     email ||= Faker::Internet.email
     password ||= Faker::Internet.password(10)
 
-    post route,
-      { user: {
-        name: name,
-        email: email,
-        password: password }
+    post(
+      route,
+      {
+        user: {
+          name: name,
+          email: email,
+          password: password
+        }
       }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s
+    )
 
     assert_equal Mime::JSON, response.content_type
     @root ||= "users"
@@ -72,7 +77,7 @@ class CreatingUsersTest < ActionDispatch::IntegrationTest
   end
 
   test "does not create user with empty password" do
-    setup_user_post(nil,nil, "")
+    setup_user_post(nil, nil, "")
     assert_response 422
     refute @payload.include? "Oscar"
     assert @payload.include? "Password can't be blank"

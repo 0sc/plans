@@ -2,9 +2,13 @@ require "test_helper"
 
 class PaginatingItemIndexTest < ActionDispatch::IntegrationTest
   def get_bucketlist_items
-    get "/v1/bucketlists/#{@list.id}/items", {
-      page: @page, limit: @limit},{ 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    get(
+      "/v1/bucketlists/#{@list.id}/items",
+      { page: @page, limit: @limit },
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
     assert_equal Mime::JSON, response.content_type
 
     @payload = json(response.body)["items"] unless response.body.empty?
@@ -14,7 +18,7 @@ class PaginatingItemIndexTest < ActionDispatch::IntegrationTest
     @first_item.id + ((@page - 1) * @limit)
   end
 
-  def common_assertions(exp_size=@limit, allow  = false)
+  def common_assertions(exp_size = @limit, allow = false)
     get_bucketlist_items
     assert_response 200
     assert_equal exp_size, @payload.size
@@ -31,7 +35,7 @@ class PaginatingItemIndexTest < ActionDispatch::IntegrationTest
   setup do
     user = create(:user)
     @token = get_authorization_token(user.email, "pass")
-    @list = create(:bucketlist_with_items, user: user, amount:200)
+    @list = create(:bucketlist_with_items, user: user, amount: 200)
     @first_item = @list.items.first
     @last_item = @list.items.last
     assert_equal 200, @list.items.count
@@ -47,15 +51,18 @@ class PaginatingItemIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "returns items in the give page and within the given limit" do
-    @page = 5; @limit = 8
+    @page = 5
+    @limit = 8
     common_assertions
     special_assertions
 
-    @page = 50; @limit = 1
+    @page = 50
+    @limit = 1
     common_assertions
     special_assertions
 
-    @page = 2; @limit = 100
+    @page = 2
+    @limit = 100
     common_assertions
     special_assertions
     assert_equal @last_item.id, @payload.last["id"]
@@ -86,5 +93,4 @@ class PaginatingItemIndexTest < ActionDispatch::IntegrationTest
     assert_response 200
     assert_empty @payload
   end
-
 end

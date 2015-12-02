@@ -11,7 +11,7 @@ class Bucketlist < List
   end
 
   def self.search(q)
-     where("name Like ?", "%#{q}%")
+    where("name Like ?", "%#{q}%")
   end
 
   def self.not_mine(user)
