@@ -1,5 +1,4 @@
-require 'jwt'
-
+require "jwt"
 class TokenManager
   attr_reader :request
 
@@ -13,22 +12,24 @@ class TokenManager
   end
 
   def issue_token(payload)
-    JWT.encode(payload, Rails.application.secrets.secret_key_base, "HS512")
+    JWT.encode(payload, secret, "HS512")
+  end
+
+  def secret
+    Rails.application.secrets.secret_key_base
   end
 
   def valid?(token)
-    JWT.decode(token, Rails.application.secrets.secret_key_base, true, { algorithm: "HS512" })
+    JWT.decode(token, secret, true, algorithm: "HS512")
   end
 
   def authenticate!
-    begin
-      valid?(token)
-    rescue
-      ["", 401]
-    end
+    valid?(token)
+  rescue
+    ["", 401]
   end
 
   def token
-    request.headers['Authorization'].split(" ").last
+    request.headers["Authorization"].split(" ").last
   end
 end

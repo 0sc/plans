@@ -2,8 +2,13 @@ require "test_helper"
 
 class DestroyingBucketlistTest < ActionDispatch::IntegrationTest
   def destroy_user_bucketlist(id = @list.id)
-    delete "/v1/bucketlists/#{id}", {}, { 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    delete(
+      "/v1/bucketlists/#{id}",
+      {},
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
   end
 
   setup do

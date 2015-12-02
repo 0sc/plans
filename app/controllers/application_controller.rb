@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_token
-    payload, header =  TokenManager.new(request).authenticate!
+    payload, _header = TokenManager.new(request).authenticate!
     @current_user = User.find_by(id: payload["user"])
     return if @current_user && @current_user.active
 

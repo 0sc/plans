@@ -2,9 +2,13 @@ require "test_helper"
 
 class PaginatingBucketlistIndexTest < ActionDispatch::IntegrationTest
   def get_user_bucketlist
-    get "/v1/bucketlists", {
-      page: @page, limit: @limit},{ 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    get(
+      "/v1/bucketlists",
+      { page: @page, limit: @limit },
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
     assert_equal Mime::JSON, response.content_type
     @payload = json(response.body)["bucketlists"] unless response.body.empty?
   end
@@ -13,7 +17,7 @@ class PaginatingBucketlistIndexTest < ActionDispatch::IntegrationTest
     @first_item.id + ((@page - 1) * @limit)
   end
 
-  def common_assertions(exp_size=@limit, allow  = false)
+  def common_assertions(exp_size = @limit, allow = false)
     get_user_bucketlist
     assert_response 200
     assert_equal exp_size, @payload.size
@@ -45,15 +49,18 @@ class PaginatingBucketlistIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "returns items in the given page and within the given limit" do
-    @page = 5; @limit = 8
+    @page = 5
+    @limit = 8
     common_assertions
     special_assertions
 
-    @page = 50; @limit = 1
+    @page = 50
+    @limit = 1
     common_assertions
     special_assertions
 
-    @page = 2; @limit = 100
+    @page = 2
+    @limit = 100
     common_assertions
     special_assertions
     assert_equal @last_item.id, @payload.last["id"]
@@ -83,5 +90,4 @@ class PaginatingBucketlistIndexTest < ActionDispatch::IntegrationTest
     assert_response 200
     assert_empty @payload
   end
-
 end

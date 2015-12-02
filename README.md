@@ -122,9 +122,11 @@ Note that tokens expire **24hrs** after they are issued.
 
 ### Notes on v2
 
+** Experimental version **
+
 V2 extends V1 with some awesome features. Notably,
-* `list` and `show` bucketlist requests are no longer scoped to the `current user` but it returns all available bucketlists
-* `list` and `show` items requests are no longer scoped to the `current user` but it returns all available bucketlist items
+* `list` and `show` bucketlist requests are no longer scoped to the `current user` but rather it returns all available bucketlists
+* `list` and `show` items requests are no longer scoped to the `current user` but rather it returns all available bucketlist items
 * requests can be customized to return only results specfic, and/or not specific to the `current user` using the `o` params
 ```
 scoped request

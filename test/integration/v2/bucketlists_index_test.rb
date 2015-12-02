@@ -1,6 +1,6 @@
 require "test_helper"
 
-class V2::BucketlistIndexTest < ActionDispatch::IntegrationTest
+class V2BucketlistIndexTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user_with_bucketlist, amount: 5)
     @token = get_authorization_token(@user.email, "pass")
@@ -10,8 +10,12 @@ class V2::BucketlistIndexTest < ActionDispatch::IntegrationTest
   end
 
   def get_user_bucketlist(param = {})
-    get "/v2/bucketlists", param,{ 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    get(
+      "/v2/bucketlists",
+      param,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s, "Authorization" => "Token #{@token}"
+    )
     assert_equal Mime::JSON, response.content_type
     assert_response 200
     @payload = json(response.body)["bucketlists"] unless response.body.empty?

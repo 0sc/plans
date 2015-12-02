@@ -1,16 +1,21 @@
 require "test_helper"
 
 class LoginUserTest < ActionDispatch::IntegrationTest
-  def setup_user_login(email=nil, password=nil)
+  def setup_user_login(email = nil, password = nil)
     email ||= Faker::Internet.email
     password ||= Faker::Internet.password(10)
 
-    post "/auth/login",
-      { user: {
-        email: email,
-        password: password }
+    post(
+      "/auth/login",
+      {
+        user: {
+          email: email,
+          password: password
+        }
       }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s}
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s
+    )
 
     # assert_equal Mime::JSON, response.content_type
   end

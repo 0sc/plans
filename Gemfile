@@ -14,12 +14,13 @@ gem "versionist"
 group :development, :test do
   gem "sqlite3"
   gem "faker"
-  gem "pry"
+  gem "pry-nav"
   gem "factory_girl_rails", "~> 4.0"
+  gem "rubocop", require: false
 end
 
 group :test do
-  gem 'simplecov', :require => false
+  gem "simplecov", require: false
   gem "codeclimate-test-reporter", require: nil
 end
 

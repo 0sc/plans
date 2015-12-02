@@ -2,15 +2,19 @@ require "test_helper"
 
 class LogoutUserTest < ActionDispatch::IntegrationTest
   def setup_user_logout
-    get "/auth/logout", { },
-    { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s,
-      "Authorization" => "Token #{@token}"}
+    get(
+      "/auth/logout",
+      {},
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
   end
 
   setup do
     user = create(:user, password: "password")
     @token = get_authorization_token(user.email, "password")
-    @user= user.reload
+    @user = user.reload
   end
 
   test "logs out user" do

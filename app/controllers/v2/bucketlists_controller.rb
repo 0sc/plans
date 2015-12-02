@@ -12,6 +12,5 @@ module V2
     def show
       render json: @bucketlist, status: 200
     end
-
   end
 end
