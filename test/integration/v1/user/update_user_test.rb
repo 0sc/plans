@@ -6,16 +6,24 @@ class UpdatingUserTest < ActionDispatch::IntegrationTest
     @token = get_authorization_token(@user.email, "password")
   end
 
-  def setup_user_update(token="", name=nil, email=nil, password=nil, route = "/users")
+  def setup_user_update(
+    token = "",
+    name = nil,
+    email = nil,
+    password = nil,
+    route = "/users"
+  )
     name ||= Faker::Name.name
     email ||= Faker::Internet.email
     password ||= Faker::Internet.password(10)
 
-    patch route,
-      { user: { name: name, email: email, password: password }
-      }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s,
-        "Authorization" => "Token #{token}" }
+    patch(
+      route,
+      { user: { name: name, email: email, password: password } }.to_json,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
     @root ||= "users"
@@ -42,10 +50,13 @@ class UpdatingUserTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 422 for request without strong params" do
-    patch "/users",
+    patch(
+      "/users",
       { name: "NewName", email: "new@email.com", password: "newpass" }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s,
-        "Authorization" => "Token #{@token}" }
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
     assert_response 400

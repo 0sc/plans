@@ -1,14 +1,14 @@
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
-require 'simplecov'
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../../config/environment", __FILE__)
+require "simplecov"
 SimpleCov.start
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
-require 'rails/test_help'
+require "rails/test_help"
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  # Setup all fixtures test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
@@ -17,12 +17,11 @@ class ActiveSupport::TestCase
   end
 
   def get_authorization_token(email, password)
-    post "/auth/login",
-      { user: {
-        email: email,
-        password: password }
-      }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+    post(
+      "/auth/login",
+      { user: { email: email, password: password } }.to_json,
+      "Accept" => Mime::JSON, "Content-Type" => Mime::JSON.to_s
+    )
     assert_equal Mime::JSON, response.content_type
     json(response.body)["auth_token"]
   end

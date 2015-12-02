@@ -2,8 +2,13 @@ require "test_helper"
 
 class UpdatingBucketlistTest < ActionDispatch::IntegrationTest
   def update_user_bucketlist(id = @list.id, name = "Modified")
-    patch "/v1/bucketlists/#{id}", { bucketlist: { name: name } }.to_json, { 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    patch(
+      "/v1/bucketlists/#{id}",
+      { bucketlist: { name: name } }.to_json,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
     @root ||= "bucketlist"
@@ -40,8 +45,12 @@ class UpdatingBucketlistTest < ActionDispatch::IntegrationTest
   end
 
   test "it returns 400 if strong params is invalid" do
-    patch "/v1/bucketlists/#{@list.id}", { name: "Modified" }.to_json, { 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    patch(
+      "/v1/bucketlists/#{@list.id}",
+      { name: "Modified" }.to_json,
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s, "Authorization" => "Token #{@token}"
+    )
 
     assert_equal Mime::JSON, response.content_type
     assert_response 400
@@ -53,12 +62,17 @@ class UpdatingBucketlistTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 422 if new name is too long" do
-    assertions_for_invalid_update_request(Faker::Lorem.characters(101),
-    "Name is too long (maximum is 100 characters)")
+    assertions_for_invalid_update_request(
+      Faker::Lorem.characters(101),
+      "Name is too long (maximum is 100 characters)"
+    )
   end
 
   test "returns 422 if new name is too short" do
-    assertions_for_invalid_update_request(Faker::Lorem.characters(1), "Name is too short (minimum is 2 characters)")
+    assertions_for_invalid_update_request(
+      Faker::Lorem.characters(1),
+      "Name is too short (minimum is 2 characters)"
+    )
   end
 
   test "returns 401 if user is not logged in" do

@@ -7,8 +7,13 @@ class BucketlistIndexTest < ActionDispatch::IntegrationTest
   end
 
   def get_user_bucketlist(param = nil)
-    get "/v1/bucketlists", {q: param},{ 'Accept' => Mime::JSON,
-      'Content-Type' => Mime::JSON.to_s, "Authorization" => "Token #{@token}" }
+    get(
+      "/v1/bucketlists",
+      { q: param },
+      "Accept" => Mime::JSON,
+      "Content-Type" => Mime::JSON.to_s,
+      "Authorization" => "Token #{@token}"
+    )
     assert_equal Mime::JSON, response.content_type
 
     @payload = json(response.body)["bucketlists"] unless response.body.empty?
