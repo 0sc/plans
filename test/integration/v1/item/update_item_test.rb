@@ -11,8 +11,10 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     )
 
     assert_equal Mime::JSON, response.content_type
-    @root ||= "item"
-    @payload = json(response.body)[@root] unless response.body.empty?
+    unless response.body.empty?
+      @payload = json(response.body)["item"]
+      @payload = @payload["errors"] unless @no_errors
+    end
   end
 
   def assertions_with_no_message(id = nil, code = 422)
@@ -24,7 +26,6 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   end
 
   def assertions_for_invalid_update_request(message)
-    @root = "items"
     update_bucketlist_item
     assert_response 422
     assert @payload.include? message
@@ -36,6 +37,7 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
     @token = get_authorization_token(user.email, "pass")
     @list = create(:bucketlist_with_items, user: user)
     @item = @list.items.last
+    @no_errors = false
   end
 
   test "returns 404 if bucketlist params is invalid" do
@@ -53,6 +55,7 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   end
 
   test "updates the name of item with valid params" do
+    @no_errors = true
     @item.name = "New name"
     update_bucketlist_item
     assert_response 200
@@ -61,6 +64,7 @@ class UpdatingItemTest < ActionDispatch::IntegrationTest
   end
 
   test "updates the completed status of item with valid params" do
+    @no_errors = true
     @item.done = true
     update_bucketlist_item
     assert_response 200

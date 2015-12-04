@@ -12,12 +12,13 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
 
     assert_equal Mime::JSON, response.content_type
 
-    @root ||= "item"
-    @payload = json(response.body)[@root] unless response.body.empty?
+    unless response.body.empty?
+      @payload = json(response.body)["item"]
+      @payload = @payload["errors"] unless @no_errors
+    end
   end
 
   def assertions_for_invalid_create_action(params, message)
-    @root = "items"
     create_bucketlist_item(params)
     assert_response 422
     assert @payload.include? message
@@ -39,6 +40,7 @@ class CreatingItemTest < ActionDispatch::IntegrationTest
   end
 
   test "creates new item with valid params" do
+    @no_errors = true
     create_bucketlist_item
     assert_response 201
     assert_equal "Bucketlist Item", @payload["name"]

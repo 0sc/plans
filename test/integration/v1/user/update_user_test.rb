@@ -26,8 +26,10 @@ class UpdatingUserTest < ActionDispatch::IntegrationTest
     )
 
     assert_equal Mime::JSON, response.content_type
-    @root ||= "users"
-    @payload = json(response.body)[@root] unless response.body.empty?
+    unless response.body.empty?
+      @payload = json(response.body)["user"]
+      @payload = @payload["errors"] unless @no_errors
+    end
   end
 
   def assertions_for_invalid_request
@@ -85,7 +87,7 @@ class UpdatingUserTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 200 for request with valid params" do
-    @root = "user"
+    @no_errors = true
     setup_user_update(@token, nil, "email@email.com")
     assert_response 200
     old_user = @user.dup

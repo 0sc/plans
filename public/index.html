@@ -108,8 +108,8 @@ var requestWrapper = function(opts){
           sendRequest.data.length === 0 ? '' :
           m("p", [
             m("ul",[
-              sendRequest.data = JSON.parse(sendRequest.data),
-              sendRequest.data.users.map(function(user){
+              data = sendRequest.data.user,
+              data.errors.map(function(user){
                 return m("li", user);
               })
             ])

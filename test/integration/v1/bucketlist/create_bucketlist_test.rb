@@ -15,8 +15,10 @@ class CreatingBucketlistTest < ActionDispatch::IntegrationTest
       "Authorization" => "Token #{@token}"
     )
     assert_equal Mime::JSON, response.content_type
-    @root ||= "bucketlists"
-    @payload = json(response.body)[@root] unless response.body.empty?
+    unless response.body.empty?
+      @payload = json(response.body)["bucketlist"]
+      @payload = @payload["errors"] unless @no_errors
+    end
   end
 
   def assertions_for_invalid_create_action(params, message)
@@ -29,7 +31,7 @@ class CreatingBucketlistTest < ActionDispatch::IntegrationTest
 
   test "create bucketlist if params is valid" do
     assert_equal 0, @user.bucketlists.count
-    @root = "bucketlist"
+    @no_errors = true
     setup_create_bucketlist("My Bucketlist")
     assert_response 201
     assert_equal "My Bucketlist", @payload["name"]

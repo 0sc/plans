@@ -6,7 +6,7 @@ module ProcessingUtilities
       if target.update(payload)
         render json: target, status: 200
       else
-        render json: target.errors.full_messages, status: 422
+        render json: target, status: 422
       end
     end
   end
@@ -15,7 +15,7 @@ module ProcessingUtilities
     if package.save
       render json: package, status: 201 # location: bucketlist
     else
-      render json: package.errors.full_messages, status: 422
+      render json: package, status: 422
     end
   end
 

@@ -20,12 +20,15 @@ class CreatingUsersTest < ActionDispatch::IntegrationTest
     )
 
     assert_equal Mime::JSON, response.content_type
-    @root ||= "users"
-    @payload = json(response.body)[@root] unless response.body.empty?
+
+    unless response.body.empty?
+      @payload = json(response.body)["user"]
+      @payload = @payload["errors"] unless @no_errors
+    end
   end
 
   test "creates user with valid params" do
-    @root = "user"
+    @no_errors = true
     setup_user_post
     assert_response 201
     assert_equal "Oscar", @payload["name"]

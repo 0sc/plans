@@ -11,12 +11,13 @@ class UpdatingBucketlistTest < ActionDispatch::IntegrationTest
     )
 
     assert_equal Mime::JSON, response.content_type
-    @root ||= "bucketlist"
-    @payload = json(response.body)[@root] unless response.body.empty?
+    unless response.body.empty?
+      @payload = json(response.body)["bucketlist"]
+      @payload = @payload["errors"] unless @no_errors
+    end
   end
 
   def assertions_for_invalid_update_request(param, message)
-    @root = "bucketlists"
     update_user_bucketlist(@list.id, param)
     assert_response 422
     assert @payload.include? message
@@ -30,6 +31,7 @@ class UpdatingBucketlistTest < ActionDispatch::IntegrationTest
   end
 
   test "updates the details of a bucketlist with valid params" do
+    @no_errors = true
     update_user_bucketlist
     assert_response 200
     refute_equal @list.name, @payload["name"]
