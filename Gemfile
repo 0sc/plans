@@ -1,3 +1,4 @@
+
 source "https://rubygems.org"
 
 ruby "2.1.7"
@@ -10,6 +11,7 @@ gem "active_model_serializers"
 gem "apipie-rails"
 gem "maruku"
 gem "versionist"
+gem "rack-cors"
 
 group :development, :test do
   gem "sqlite3"
