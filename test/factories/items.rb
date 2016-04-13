@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :item do
-    name Faker::Lorem.sentence(3, true)
+    name { Faker::StarWars.quote }
     done false
   end
 end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :bucketlist do
-    name Faker::Lorem.characters(10)
+    name { Faker::Superhero.power }
 
     factory :bucketlist_with_items do
       transient do
