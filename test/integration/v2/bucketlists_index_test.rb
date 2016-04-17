@@ -46,7 +46,7 @@ class V2BucketlistIndexTest < ActionDispatch::IntegrationTest
     get_user_bucketlist(o: "not_user")
     refute_equal 15, @payload.size
     assert_equal 10, @payload.size
-    assert_equal Bucketlist.find(1).name, @payload.first["name"]
+    assert_equal Bucketlist.last.name, @payload.last["name"]
   end
 
   test "searches all avaliable bucketlists" do

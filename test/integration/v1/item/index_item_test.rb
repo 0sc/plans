@@ -35,7 +35,7 @@ class ItemIndexTest < ActionDispatch::IntegrationTest
     get_bucketlist_items
     assert_response 200
     assert_equal 10, @payload.size
-    assert_equal @item.name, @payload.first["name"]
+    assert_equal @item.name, @payload.last["name"]
   end
 
   test "lists only items that are marked completed" do
