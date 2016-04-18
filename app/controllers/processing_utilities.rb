@@ -2,12 +2,10 @@ module ProcessingUtilities
   def process_update_query(target, payload)
     if payload.empty?
       render json: target, status: 400
+    elsif target.update(payload)
+      render json: target, status: 200
     else
-      if target.update(payload)
-        render json: target, status: 200
-      else
-        render json: target, status: 422
-      end
+      render json: target, status: 422
     end
   end
 

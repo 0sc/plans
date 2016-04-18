@@ -12,5 +12,4 @@ class ItemSerializer < ActiveModel::Serializer
     end
     data
   end
-
 end
