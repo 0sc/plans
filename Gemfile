@@ -3,27 +3,27 @@ source "https://rubygems.org"
 
 ruby "2.3.1"
 
-gem "rails", "4.2.5"
-gem "rails-api"
-gem "bcrypt", "~> 3.1.7"
-gem "jwt"
 gem "active_model_serializers"
 gem "apipie-rails"
+gem "bcrypt", "~> 3.1.7"
+gem "jwt"
 gem "maruku"
-gem "versionist"
 gem "rack-cors"
+gem "rails", "~> 4.2.7"
+gem "rails-api"
+gem "versionist"
 
 group :development, :test do
-  gem "sqlite3"
+  gem "factory_girl_rails", "~> 4.6"
   gem "faker"
   gem "pry-nav"
-  gem "factory_girl_rails", "~> 4.6"
   gem "rubocop", require: false
+  gem "sqlite3"
 end
 
 group :test do
-  gem "simplecov", require: false
   gem "codeclimate-test-reporter", require: nil
+  gem "simplecov", require: false
 end
 
 group :development do
