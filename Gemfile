@@ -1,9 +1,9 @@
 
 source "https://rubygems.org"
 
-ruby "2.1.7"
+ruby "2.3.1"
 
-gem "rails", "4.2.4"
+gem "rails", "~> 4.2.7"
 gem "rails-api"
 gem "bcrypt", "~> 3.1.7"
 gem "jwt"
@@ -17,7 +17,7 @@ group :development, :test do
   gem "sqlite3"
   gem "faker"
   gem "pry-nav"
-  gem "factory_girl_rails", "~> 4.0"
+  gem "factory_girl_rails", "~> 4.6"
   gem "rubocop", require: false
 end
 
